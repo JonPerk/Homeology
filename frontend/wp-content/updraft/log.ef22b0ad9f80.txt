@@ -1,0 +1,416 @@
+0000.000 (0) Opened log file at time: Thu, 07 May 2015 17:00:28 +0000 on http://homeologychicago.com
+0000.004 (0) UpdraftPlus WordPress backup plugin (http://updraftplus.com): 2.9.64.1 WP: 4.2.2 PHP: 5.4.38 (Linux gator3240.hostgator.com 3.12.35.1418868451 #1 SMP Wed Dec 17 20:10:32 CST 2014 x86_64) MySQL: 5.5.42-37.1 Server: Apache safe_mode: 0 max_execution_time: 900 memory_limit: 256M (used: 30.7M | 31.5M) multisite: N mcrypt: Y LANG:  ZipArchive::addFile: Y
+0000.215 (0) Free space on disk containing Updraft's temporary directory: 263142.5 Mb / Free disk space in account: 998368.3 Mb (0.2 % used)
+0000.222 (0) Tasks: Backup files: 1 (schedule: manual) Backup DB: 1 (schedule: manual)
+0000.258 (0) Requesting semaphore lock (fd)
+0000.264 (0) Set semaphore last lock (fd) time to 2015-05-07 17:00:29
+0000.267 (0) Semaphore lock (fd) complete
+0000.289 (0) Backup run: resumption=0, nonce=ef22b0ad9f80, begun at=1431018028 (1s ago), job type=backup
+0000.292 (0) Scheduling a resumption (1) after 300 seconds (1431018329) in case this run gets aborted
+0000.313 (0) Checking if we have a zip executable available
+0000.316 (0) Testing: /usr/bin/zip
+0000.326 (0) Output: zip warning: binziptest/test.zip not found or empty
+0000.337 (0) Output: adding: binziptest/subdir1/	(in=0) (out=0) (stored 0%)
+0000.339 (0) Output: adding: binziptest/subdir1/subdir2/	(in=0) (out=0) (stored 0%)
+0000.341 (0) Output: adding: binziptest/subdir1/subdir2/test.html	(in=127) (out=105) (deflated 17%)
+0000.343 (0) Output: total bytes=127, compressed=105 -> 17% savings
+0000.353 (0) Output: adding: binziptest/subdir1/subdir2/test2.html	(in=134) (out=109) (deflated 19%)
+0000.357 (0) Output: total bytes=261, compressed=214 -> 18% savings
+0000.370 (0) Working binary zip found: /usr/bin/zip
+0000.376 (0) Zip engine: found/will use a binary zip: /usr/bin/zip
+0000.379 (0) Creation of backups of directories: beginning
+0000.387 (0) Beginning creation of dump of plugins (split every: 500 Mb)
+0000.571 (0) Free disk space in account: 998368.3 Mb (0.2 % used)
+0001.600 (0) Total entities for the zip file: 583 directories, 3526 files (0 skipped as non-modified), 58.9 Mb
+0001.609 (0) Zip: backup_2015-05-07-1700_Homeology_ef22b0ad9f80-plugins.zip.tmp: 100 files added (on-disk size: 0 Kb)
+0001.614 (0) Zip: backup_2015-05-07-1700_Homeology_ef22b0ad9f80-plugins.zip.tmp: 200 files added (on-disk size: 0 Kb)
+0001.619 (0) Zip: backup_2015-05-07-1700_Homeology_ef22b0ad9f80-plugins.zip.tmp: 300 files added (on-disk size: 0 Kb)
+0001.623 (0) Zip: backup_2015-05-07-1700_Homeology_ef22b0ad9f80-plugins.zip.tmp: 400 files added (on-disk size: 0 Kb)
+0001.630 (0) Zip: backup_2015-05-07-1700_Homeology_ef22b0ad9f80-plugins.zip.tmp: 500 files added (on-disk size: 0 Kb)
+0001.633 (0) Adding batch to zip file (UpdraftPlus_BinZip): over 500 files added on this batch (6.6 Mb, 3526 files batched, 501 (501) added so far); re-opening (prior size: 0 Kb)
+0007.437 (0) backup_2015-05-07-1700_Homeology_ef22b0ad9f80-plugins.zip.tmp: size is now: 5.00 Mb
+0007.446 (0) Zip: backup_2015-05-07-1700_Homeology_ef22b0ad9f80-plugins.zip.tmp: 600 files added (on-disk size: 5161.8 Kb)
+0007.452 (0) Zip: backup_2015-05-07-1700_Homeology_ef22b0ad9f80-plugins.zip.tmp: 700 files added (on-disk size: 5161.8 Kb)
+0007.459 (0) Zip: backup_2015-05-07-1700_Homeology_ef22b0ad9f80-plugins.zip.tmp: 800 files added (on-disk size: 5161.8 Kb)
+0007.465 (0) Zip: backup_2015-05-07-1700_Homeology_ef22b0ad9f80-plugins.zip.tmp: 900 files added (on-disk size: 5161.8 Kb)
+0007.470 (0) Zip: backup_2015-05-07-1700_Homeology_ef22b0ad9f80-plugins.zip.tmp: 1000 files added (on-disk size: 5161.8 Kb)
+0007.473 (0) Adding batch to zip file (UpdraftPlus_BinZip): over 500 files added on this batch (2 Mb, 3526 files batched, 501 (1002) added so far); re-opening (prior size: 5161.8 Kb)
+0012.686 (0) Zip: backup_2015-05-07-1700_Homeology_ef22b0ad9f80-plugins.zip.tmp: 1100 files added (on-disk size: 5874.7 Kb)
+0012.694 (0) Zip: backup_2015-05-07-1700_Homeology_ef22b0ad9f80-plugins.zip.tmp: 1200 files added (on-disk size: 5874.7 Kb)
+0012.705 (0) Zip: backup_2015-05-07-1700_Homeology_ef22b0ad9f80-plugins.zip.tmp: 1300 files added (on-disk size: 5874.7 Kb)
+0012.714 (0) Zip: backup_2015-05-07-1700_Homeology_ef22b0ad9f80-plugins.zip.tmp: 1400 files added (on-disk size: 5874.7 Kb)
+0012.722 (0) Zip: backup_2015-05-07-1700_Homeology_ef22b0ad9f80-plugins.zip.tmp: 1500 files added (on-disk size: 5874.7 Kb)
+0012.726 (0) Adding batch to zip file (UpdraftPlus_BinZip): over 500 files added on this batch (17.9 Mb, 3526 files batched, 501 (1503) added so far); re-opening (prior size: 5874.7 Kb)
+0018.048 (0) backup_2015-05-07-1700_Homeology_ef22b0ad9f80-plugins.zip.tmp: size is now: 12.10 Mb
+0018.060 (0) Zip: backup_2015-05-07-1700_Homeology_ef22b0ad9f80-plugins.zip.tmp: 1600 files added (on-disk size: 12389.5 Kb)
+0018.065 (0) Zip: backup_2015-05-07-1700_Homeology_ef22b0ad9f80-plugins.zip.tmp: 1700 files added (on-disk size: 12389.5 Kb)
+0018.070 (0) Zip: backup_2015-05-07-1700_Homeology_ef22b0ad9f80-plugins.zip.tmp: 1800 files added (on-disk size: 12389.5 Kb)
+0018.075 (0) Zip: backup_2015-05-07-1700_Homeology_ef22b0ad9f80-plugins.zip.tmp: 1900 files added (on-disk size: 12389.5 Kb)
+0018.080 (0) Zip: backup_2015-05-07-1700_Homeology_ef22b0ad9f80-plugins.zip.tmp: 2000 files added (on-disk size: 12389.5 Kb)
+0018.082 (0) Adding batch to zip file (UpdraftPlus_BinZip): over 500 files added on this batch (7.6 Mb, 3526 files batched, 501 (2004) added so far); re-opening (prior size: 12389.5 Kb)
+0020.781 (0) backup_2015-05-07-1700_Homeology_ef22b0ad9f80-plugins.zip.tmp: size is now: 15.70 Mb
+0020.794 (0) Zip: backup_2015-05-07-1700_Homeology_ef22b0ad9f80-plugins.zip.tmp: 2100 files added (on-disk size: 16127.7 Kb)
+0020.799 (0) Zip: backup_2015-05-07-1700_Homeology_ef22b0ad9f80-plugins.zip.tmp: 2200 files added (on-disk size: 16127.7 Kb)
+0020.803 (0) Zip: backup_2015-05-07-1700_Homeology_ef22b0ad9f80-plugins.zip.tmp: 2300 files added (on-disk size: 16127.7 Kb)
+0020.808 (0) Zip: backup_2015-05-07-1700_Homeology_ef22b0ad9f80-plugins.zip.tmp: 2400 files added (on-disk size: 16127.7 Kb)
+0020.812 (0) Zip: backup_2015-05-07-1700_Homeology_ef22b0ad9f80-plugins.zip.tmp: 2500 files added (on-disk size: 16127.7 Kb)
+0020.815 (0) Adding batch to zip file (UpdraftPlus_BinZip): over 500 files added on this batch (4.6 Mb, 3526 files batched, 501 (2505) added so far); re-opening (prior size: 16127.7 Kb)
+0025.524 (0) Zip: backup_2015-05-07-1700_Homeology_ef22b0ad9f80-plugins.zip.tmp: 2600 files added (on-disk size: 18212.1 Kb)
+0025.532 (0) Zip: backup_2015-05-07-1700_Homeology_ef22b0ad9f80-plugins.zip.tmp: 2700 files added (on-disk size: 18212.1 Kb)
+0025.543 (0) Zip: backup_2015-05-07-1700_Homeology_ef22b0ad9f80-plugins.zip.tmp: 2800 files added (on-disk size: 18212.1 Kb)
+0025.551 (0) Zip: backup_2015-05-07-1700_Homeology_ef22b0ad9f80-plugins.zip.tmp: 2900 files added (on-disk size: 18212.1 Kb)
+0025.558 (0) Zip: backup_2015-05-07-1700_Homeology_ef22b0ad9f80-plugins.zip.tmp: 3000 files added (on-disk size: 18212.1 Kb)
+0025.563 (0) Adding batch to zip file (UpdraftPlus_BinZip): over 500 files added on this batch (11.8 Mb, 3526 files batched, 501 (3006) added so far); re-opening (prior size: 18212.1 Kb)
+0031.824 (0) backup_2015-05-07-1700_Homeology_ef22b0ad9f80-plugins.zip.tmp: size is now: 22.90 Mb
+0031.842 (0) Zip: backup_2015-05-07-1700_Homeology_ef22b0ad9f80-plugins.zip.tmp: 3100 files added (on-disk size: 23424.6 Kb)
+0031.848 (0) Zip: backup_2015-05-07-1700_Homeology_ef22b0ad9f80-plugins.zip.tmp: 3200 files added (on-disk size: 23424.6 Kb)
+0031.852 (0) Zip: backup_2015-05-07-1700_Homeology_ef22b0ad9f80-plugins.zip.tmp: 3300 files added (on-disk size: 23424.6 Kb)
+0031.858 (0) Zip: backup_2015-05-07-1700_Homeology_ef22b0ad9f80-plugins.zip.tmp: 3400 files added (on-disk size: 23424.6 Kb)
+0031.863 (0) Zip: backup_2015-05-07-1700_Homeology_ef22b0ad9f80-plugins.zip.tmp: 3500 files added (on-disk size: 23424.6 Kb)
+0031.866 (0) Adding batch to zip file (UpdraftPlus_BinZip): over 500 files added on this batch (8.3 Mb, 3526 files batched, 501 (3507) added so far); re-opening (prior size: 23424.6 Kb)
+0035.997 (0) Created plugins zip (0) - 25871 Kb in 35.4 s (730.4 Kb/s) (SHA1 checksum: b8864cfdb8be6af005577b9db61d5fe04844bd9d)
+0036.015 (0) Beginning creation of dump of themes (split every: 500 Mb)
+0036.252 (0) Free disk space in account: 998368.3 Mb (0.2 % used)
+0036.374 (0) Total entities for the zip file: 27 directories, 204 files (0 skipped as non-modified), 5.9 Mb
+0036.381 (0) Zip: backup_2015-05-07-1700_Homeology_ef22b0ad9f80-themes.zip.tmp: 100 files added (on-disk size: 0 Kb)
+0036.387 (0) Zip: backup_2015-05-07-1700_Homeology_ef22b0ad9f80-themes.zip.tmp: 200 files added (on-disk size: 0 Kb)
+0038.146 (0) backup_2015-05-07-1700_Homeology_ef22b0ad9f80-themes.zip.tmp: size is now: 4.30 Mb
+0038.188 (0) Created themes zip (0) - 4436 Kb in 1.9 s (2300.6 Kb/s) (SHA1 checksum: e0c6daa60549c23d9991bdffc83fe4a198934217)
+0038.193 (0) Exclusion option setting (uploads): backup*,*backups,backwpup*,wp-clone
+0038.196 (0) Looking for candidates to back up in: /home3/urb2burb/public_html/homeologychicago.com/wp-content/uploads
+0038.208 (0) finding files: 2014: adding to list (1)
+0038.212 (0) finding files: ultimate_importer: adding to list (2)
+0038.214 (0) finding files: 2020: adding to list (3)
+0038.217 (0) finding files: 2012: adding to list (4)
+0038.219 (0) finding files: 2011: adding to list (5)
+0038.221 (0) finding files: 2013: adding to list (6)
+0038.223 (0) finding files: 2015: adding to list (7)
+0038.226 (0) Beginning creation of dump of uploads (split every: 500 Mb)
+0038.422 (0) Free disk space in account: 998368.3 Mb (0.2 % used)
+0038.746 (0) Total entities for the zip file: 29 directories, 692 files (0 skipped as non-modified), 91.7 Mb
+0038.753 (0) Zip: backup_2015-05-07-1700_Homeology_ef22b0ad9f80-uploads.zip.tmp: 100 files added (on-disk size: 0 Kb)
+0038.758 (0) Zip: backup_2015-05-07-1700_Homeology_ef22b0ad9f80-uploads.zip.tmp: 200 files added (on-disk size: 0 Kb)
+0038.761 (0) Adding batch to zip file (UpdraftPlus_BinZip): over 25 Mb added on this batch (25 Mb, 692 files batched, 235 (235) added so far); re-opening (prior size: 0 Kb)
+0043.272 (0) backup_2015-05-07-1700_Homeology_ef22b0ad9f80-uploads.zip.tmp: size is now: 24.60 Mb
+0043.280 (0) A useful amount of data was added after this amount of zip processing: 5.1 s (normalised: 5.1 s, rate: 4981.9 Kb/s)
+0043.299 (0) Performance is good - will increase the amount of data we attempt to batch (time=5.14335608482, normalised_time=5.13861410279, max_time=-1, data points known=0, old_max_bytes=26214400, new_max_bytes=30608719)
+0043.308 (0) Zip: backup_2015-05-07-1700_Homeology_ef22b0ad9f80-uploads.zip.tmp: 300 files added (on-disk size: 25170.5 Kb)
+0043.314 (0) Zip: backup_2015-05-07-1700_Homeology_ef22b0ad9f80-uploads.zip.tmp: 400 files added (on-disk size: 25170.5 Kb)
+0043.319 (0) Adding batch to zip file (UpdraftPlus_BinZip): over 29.2 Mb added on this batch (29.7 Mb, 692 files batched, 218 (453) added so far); re-opening (prior size: 25170.5 Kb)
+0049.431 (0) backup_2015-05-07-1700_Homeology_ef22b0ad9f80-uploads.zip.tmp: size is now: 53.60 Mb
+0049.437 (0) A useful amount of data was added after this amount of zip processing: 6.3 s (normalised: 6.2 s, rate: 4826.5 Kb/s)
+0049.442 (0) Zip: backup_2015-05-07-1700_Homeology_ef22b0ad9f80-uploads.zip.tmp: 500 files added (on-disk size: 54838.2 Kb)
+0049.446 (0) Zip: backup_2015-05-07-1700_Homeology_ef22b0ad9f80-uploads.zip.tmp: 600 files added (on-disk size: 54838.2 Kb)
+0049.449 (0) Adding batch to zip file (UpdraftPlus_BinZip): over 29.2 Mb added on this batch (31.7 Mb, 692 files batched, 205 (658) added so far); re-opening (prior size: 54838.2 Kb)
+0053.913 (0) backup_2015-05-07-1700_Homeology_ef22b0ad9f80-uploads.zip.tmp: size is now: 85.00 Mb
+0053.922 (0) A useful amount of data was added after this amount of zip processing: 4.8 s (normalised: 4.4 s, rate: 6789.7 Kb/s)
+0053.928 (0) Performance is good - will increase the amount of data we attempt to batch (time=4.78541088104, normalised_time=4.40243215609, max_time=-1, data points known=0, old_max_bytes=30608719, new_max_bytes=41716103)
+0055.429 (0) Created uploads zip (0) - 92450.1 Kb in 17 s (5438.2 Kb/s) (SHA1 checksum: e66b34aa8b87680fd79a6577006c22c7fcffdb3e)
+0055.433 (0) Beginning backup of other directories found in the content directory (index: 0)
+0055.436 (0) Exclusion option setting (others): upgrade,cache,updraft,backup*,*backups
+0055.438 (0) Looking for candidates to back up in: /home3/urb2burb/public_html/homeologychicago.com/wp-content
+0055.440 (0) finding files: upgrade: skipping: excluded by options
+0055.443 (0) finding files: advanced-cache.php: adding to list (1)
+0055.445 (0) finding files: plugins: skipping: this is the plugins directory
+0055.448 (0) finding files: cache: skipping: excluded by options
+0055.450 (0) finding files: index.php: adding to list (2)
+0055.453 (0) finding files: themes: skipping: this is the themes directory
+0055.456 (0) finding files: uploads: skipping: this is the uploads directory
+0055.458 (0) finding files: updraft: skipping: this is the updraft directory
+0055.461 (0) finding files: wp-cache-config.php: adding to list (3)
+0055.629 (0) Free disk space in account: 998368.3 Mb (0.2 % used)
+0055.638 (0) Total entities for the zip file: 0 directories, 3 files (0 skipped as non-modified), 0 Mb
+0055.668 (0) backup_2015-05-07-1700_Homeology_ef22b0ad9f80-others.zip.tmp: size is now: 0.00 Mb
+0055.680 (0) Created others zip (0) - 2.6 Kb in 0 s (55.7 Kb/s) (SHA1 checksum: 4ec5689323b59c8e320d0740bb8e4dc642352642)
+0055.693 (0) Saving backup status to database (elements: 8)
+0055.699 (0) Beginning creation of database dump (WordPress DB)
+0055.706 (0) Testing: /usr/bin/mysqldump
+0055.735 (0) Working binary mysqldump found: /usr/bin/mysqldump
+0055.764 (0) Table wp_options: Total expected rows (approximate): 835
+0055.816 (0) Table wp_options: Total rows added: 367 in 0.05 seconds
+0055.835 (0) Table wp_options: finishing file (backup_2015-05-07-1700_Homeology_ef22b0ad9f80-db-table-wp_options.table.gz - 67.2 Kb)
+0055.848 (0) Table wp_users: Total expected rows (approximate): 5
+0055.853 (0) Table wp_users: Total rows added: 5 in 0.00 seconds
+0055.856 (0) Table wp_users: finishing file (backup_2015-05-07-1700_Homeology_ef22b0ad9f80-db-table-wp_users.table.gz - 0.8 Kb)
+0055.867 (0) Table wp_usermeta: Total expected rows (approximate): 134
+0055.876 (0) Table wp_usermeta: Total rows added: 134 in 0.01 seconds
+0055.880 (0) Table wp_usermeta: finishing file (backup_2015-05-07-1700_Homeology_ef22b0ad9f80-db-table-wp_usermeta.table.gz - 3.3 Kb)
+0055.891 (0) Table wp_commentmeta: Total expected rows (approximate): 0
+0055.896 (0) Table wp_commentmeta: Total rows added: 0 in 0.00 seconds
+0055.899 (0) Table wp_commentmeta: finishing file (backup_2015-05-07-1700_Homeology_ef22b0ad9f80-db-table-wp_commentmeta.table.gz - 0.3 Kb)
+0055.910 (0) Table wp_comments: Total expected rows (approximate): 0
+0055.916 (0) Table wp_comments: Total rows added: 0 in 0.00 seconds
+0055.919 (0) Table wp_comments: finishing file (backup_2015-05-07-1700_Homeology_ef22b0ad9f80-db-table-wp_comments.table.gz - 0.5 Kb)
+0055.930 (0) Table wp_links: Total expected rows (approximate): 0
+0055.936 (0) Table wp_links: Total rows added: 0 in 0.00 seconds
+0055.939 (0) Table wp_links: finishing file (backup_2015-05-07-1700_Homeology_ef22b0ad9f80-db-table-wp_links.table.gz - 0.4 Kb)
+0055.953 (0) Table wp_postmeta: Total expected rows (approximate): 8815
+0056.020 (0) Table wp_postmeta: binary mysqldump finished (writes: 32) in 0.06 seconds
+0056.026 (0) Table wp_postmeta: finishing file (backup_2015-05-07-1700_Homeology_ef22b0ad9f80-db-table-wp_postmeta.table.gz - 73.8 Kb)
+0056.035 (0) Table wp_posts: Total expected rows (approximate): 487
+0056.098 (0) Table wp_posts: Total rows added: 419 in 0.06 seconds
+0056.102 (0) Table wp_posts: finishing file (backup_2015-05-07-1700_Homeology_ef22b0ad9f80-db-table-wp_posts.table.gz - 40.1 Kb)
+0056.110 (0) Table wp_term_relationships: Total expected rows (approximate): 399
+0056.122 (0) Table wp_term_relationships: Total rows added: 568 in 0.01 seconds
+0056.125 (0) Table wp_term_relationships: finishing file (backup_2015-05-07-1700_Homeology_ef22b0ad9f80-db-table-wp_term_relationships.table.gz - 1.8 Kb)
+0056.134 (0) Table wp_term_taxonomy: Total expected rows (approximate): 68
+0056.140 (0) Table wp_term_taxonomy: Total rows added: 68 in 0.00 seconds
+0056.143 (0) Table wp_term_taxonomy: finishing file (backup_2015-05-07-1700_Homeology_ef22b0ad9f80-db-table-wp_term_taxonomy.table.gz - 0.9 Kb)
+0056.152 (0) Table wp_terms: Total expected rows (approximate): 60
+0056.156 (0) Table wp_terms: Total rows added: 60 in 0.00 seconds
+0056.159 (0) Table wp_terms: finishing file (backup_2015-05-07-1700_Homeology_ef22b0ad9f80-db-table-wp_terms.table.gz - 1.3 Kb)
+0056.174 (0) Table wp_visual_form_builder_entries: Total expected rows (approximate): 0
+0056.179 (0) Table wp_visual_form_builder_entries: Total rows added: 0 in 0.00 seconds
+0056.182 (0) Table wp_visual_form_builder_entries: finishing file (backup_2015-05-07-1700_Homeology_ef22b0ad9f80-db-table-wp_visual_form_builder_entries.table.gz - 0.4 Kb)
+0056.203 (0) Table wp_visual_form_builder_fields: Total expected rows (approximate): 53
+0056.213 (0) Table wp_visual_form_builder_fields: Total rows added: 53 in 0.01 seconds
+0056.217 (0) Table wp_visual_form_builder_fields: finishing file (backup_2015-05-07-1700_Homeology_ef22b0ad9f80-db-table-wp_visual_form_builder_fields.table.gz - 3.3 Kb)
+0056.232 (0) Table wp_visual_form_builder_forms: Total expected rows (approximate): 3
+0056.239 (0) Table wp_visual_form_builder_forms: Total rows added: 3 in 0.00 seconds
+0056.242 (0) Table wp_visual_form_builder_forms: finishing file (backup_2015-05-07-1700_Homeology_ef22b0ad9f80-db-table-wp_visual_form_builder_forms.table.gz - 1 Kb)
+0056.258 (0) Table wp_weblizar_testimonials: Total expected rows (approximate): 2
+0056.264 (0) Table wp_weblizar_testimonials: Total rows added: 2 in 0.00 seconds
+0056.268 (0) Table wp_weblizar_testimonials: finishing file (backup_2015-05-07-1700_Homeology_ef22b0ad9f80-db-table-wp_weblizar_testimonials.table.gz - 1 Kb)
+0056.279 (0) backup_2015-05-07-1700_Homeology_ef22b0ad9f80-db-table-wp_options.table.gz (1/15): adding to final database dump
+0056.302 (0) backup_2015-05-07-1700_Homeology_ef22b0ad9f80-db-table-wp_users.table.gz (2/15): adding to final database dump
+0056.307 (0) backup_2015-05-07-1700_Homeology_ef22b0ad9f80-db-table-wp_usermeta.table.gz (3/15): adding to final database dump
+0056.312 (0) backup_2015-05-07-1700_Homeology_ef22b0ad9f80-db-table-wp_commentmeta.table.gz (4/15): adding to final database dump
+0056.317 (0) backup_2015-05-07-1700_Homeology_ef22b0ad9f80-db-table-wp_comments.table.gz (5/15): adding to final database dump
+0056.321 (0) backup_2015-05-07-1700_Homeology_ef22b0ad9f80-db-table-wp_links.table.gz (6/15): adding to final database dump
+0056.324 (0) backup_2015-05-07-1700_Homeology_ef22b0ad9f80-db-table-wp_postmeta.table.gz (7/15): adding to final database dump
+0056.359 (0) backup_2015-05-07-1700_Homeology_ef22b0ad9f80-db-table-wp_posts.table.gz (8/15): adding to final database dump
+0056.382 (0) backup_2015-05-07-1700_Homeology_ef22b0ad9f80-db-table-wp_term_relationships.table.gz (9/15): adding to final database dump
+0056.391 (0) backup_2015-05-07-1700_Homeology_ef22b0ad9f80-db-table-wp_term_taxonomy.table.gz (10/15): adding to final database dump
+0056.398 (0) backup_2015-05-07-1700_Homeology_ef22b0ad9f80-db-table-wp_terms.table.gz (11/15): adding to final database dump
+0056.403 (0) backup_2015-05-07-1700_Homeology_ef22b0ad9f80-db-table-wp_visual_form_builder_entries.table.gz (12/15): adding to final database dump
+0056.408 (0) backup_2015-05-07-1700_Homeology_ef22b0ad9f80-db-table-wp_visual_form_builder_fields.table.gz (13/15): adding to final database dump
+0056.413 (0) backup_2015-05-07-1700_Homeology_ef22b0ad9f80-db-table-wp_visual_form_builder_forms.table.gz (14/15): adding to final database dump
+0056.417 (0) backup_2015-05-07-1700_Homeology_ef22b0ad9f80-db-table-wp_weblizar_testimonials.table.gz (15/15): adding to final database dump
+0056.423 (0) backup_2015-05-07-1700_Homeology_ef22b0ad9f80-db.gz: finished writing out complete database file (176 Kb)
+0056.435 (0) Total database tables backed up: 15 (backup_2015-05-07-1700_Homeology_ef22b0ad9f80-db.gz, size: 198184, checksum (SHA1): 65c4768cff94531dc8e0c0c2a94540003aa36c26)
+0056.442 (0) Saving backup history
+0056.453 (0) backup_2015-05-07-1700_Homeology_ef22b0ad9f80-plugins.zip: plugins: This file has not yet been successfully uploaded: will queue
+0056.456 (0) backup_2015-05-07-1700_Homeology_ef22b0ad9f80-themes.zip: themes: This file has not yet been successfully uploaded: will queue
+0056.458 (0) backup_2015-05-07-1700_Homeology_ef22b0ad9f80-uploads.zip: uploads: This file has not yet been successfully uploaded: will queue
+0056.461 (0) backup_2015-05-07-1700_Homeology_ef22b0ad9f80-others.zip: others: This file has not yet been successfully uploaded: will queue
+0056.464 (0) backup_2015-05-07-1700_Homeology_ef22b0ad9f80-db.gz: db: This file has not yet been successfully uploaded: will queue
+0056.473 (0) Requesting upload of the files that have not yet been successfully uploaded (5)
+0056.484 (0) Cloud backup selection (1/1): dropbox (last)
+0056.488 (0) Beginning dispatch of backup to remote (dropbox)
+0056.490 (0) Dropbox: begin cloud upload
+0056.553 (0) Dropbox: access gained
+0056.975 (0) Dropbox quota usage: normal=4894.5 Mb, shared=102.9 Mb, total=5376 Mb, available=378.6 Mb
+0056.980 (0) Dropbox: Attempt to upload: backup_2015-05-07-1700_Homeology_ef22b0ad9f80-plugins.zip to: backup_2015-05-07-1700_Homeology_ef22b0ad9f80-plugins.zip
+0058.861 (0) Dropbox chunked upload: 4 % uploaded (f4ByRPHlHcBxmlgDYwLhsg, 1048576)
+0060.826 (0) Dropbox chunked upload: 7.9 % uploaded (f4ByRPHlHcBxmlgDYwLhsg, 2097152)
+0063.280 (0) Dropbox chunked upload: 11.9 % uploaded (f4ByRPHlHcBxmlgDYwLhsg, 3145728)
+0067.292 (0) Dropbox chunked upload: 15.8 % uploaded (f4ByRPHlHcBxmlgDYwLhsg, 4194304)
+0069.503 (0) Dropbox chunked upload: 19.8 % uploaded (f4ByRPHlHcBxmlgDYwLhsg, 5242880)
+0071.471 (0) Dropbox chunked upload: 23.7 % uploaded (f4ByRPHlHcBxmlgDYwLhsg, 6291456)
+0073.704 (0) Dropbox chunked upload: 27.7 % uploaded (f4ByRPHlHcBxmlgDYwLhsg, 7340032)
+0077.144 (0) Dropbox chunked upload: 31.7 % uploaded (f4ByRPHlHcBxmlgDYwLhsg, 8388608)
+0079.138 (0) Dropbox chunked upload: 35.6 % uploaded (f4ByRPHlHcBxmlgDYwLhsg, 9437184)
+0081.133 (0) Dropbox chunked upload: 39.6 % uploaded (f4ByRPHlHcBxmlgDYwLhsg, 10485760)
+0083.103 (0) Dropbox chunked upload: 43.5 % uploaded (f4ByRPHlHcBxmlgDYwLhsg, 11534336)
+0086.261 (0) Dropbox chunked upload: 47.5 % uploaded (f4ByRPHlHcBxmlgDYwLhsg, 12582912)
+0088.145 (0) Dropbox chunked upload: 51.5 % uploaded (f4ByRPHlHcBxmlgDYwLhsg, 13631488)
+0090.535 (0) Dropbox chunked upload: 55.4 % uploaded (f4ByRPHlHcBxmlgDYwLhsg, 14680064)
+0092.488 (0) Dropbox chunked upload: 59.4 % uploaded (f4ByRPHlHcBxmlgDYwLhsg, 15728640)
+0095.459 (0) Dropbox chunked upload: 63.3 % uploaded (f4ByRPHlHcBxmlgDYwLhsg, 16777216)
+0097.319 (0) Dropbox chunked upload: 67.3 % uploaded (f4ByRPHlHcBxmlgDYwLhsg, 17825792)
+0099.408 (0) Dropbox chunked upload: 71.2 % uploaded (f4ByRPHlHcBxmlgDYwLhsg, 18874368)
+0101.429 (0) Dropbox chunked upload: 75.2 % uploaded (f4ByRPHlHcBxmlgDYwLhsg, 19922944)
+0104.521 (0) Dropbox chunked upload: 79.2 % uploaded (f4ByRPHlHcBxmlgDYwLhsg, 20971520)
+0106.155 (0) Dropbox chunked upload: 83.1 % uploaded (f4ByRPHlHcBxmlgDYwLhsg, 22020096)
+0108.442 (0) Dropbox chunked upload: 87.1 % uploaded (f4ByRPHlHcBxmlgDYwLhsg, 23068672)
+0111.929 (0) Dropbox chunked upload: 91 % uploaded (f4ByRPHlHcBxmlgDYwLhsg, 24117248)
+0115.379 (0) Dropbox chunked upload: 95 % uploaded (f4ByRPHlHcBxmlgDYwLhsg, 25165824)
+0117.482 (0) Dropbox chunked upload: 99 % uploaded (f4ByRPHlHcBxmlgDYwLhsg, 26214400)
+0118.914 (0) Dropbox chunked upload: 100 % uploaded (f4ByRPHlHcBxmlgDYwLhsg, 26491870)
+0121.011 (0) Recording as successfully uploaded: backup_2015-05-07-1700_Homeology_ef22b0ad9f80-plugins.zip (42c11755f428baad8e886cef1940d902)
+0121.056 (0) Deleting local file: backup_2015-05-07-1700_Homeology_ef22b0ad9f80-plugins.zip: OK
+0121.061 (0) Dropbox: File upload success (backup_2015-05-07-1700_Homeology_ef22b0ad9f80-plugins.zip): 25870 Kb in 64s (403 Kb/s)
+0121.316 (0) Dropbox quota usage: normal=4919.8 Mb, shared=102.9 Mb, total=5376 Mb, available=353.3 Mb
+0121.324 (0) Dropbox: Attempt to upload: backup_2015-05-07-1700_Homeology_ef22b0ad9f80-themes.zip to: backup_2015-05-07-1700_Homeology_ef22b0ad9f80-themes.zip
+0123.106 (0) Dropbox chunked upload: 23.1 % uploaded (C3VTGbgXxRocSNwnkhIdMQ, 1048576)
+0125.090 (0) Dropbox chunked upload: 46.2 % uploaded (C3VTGbgXxRocSNwnkhIdMQ, 2097152)
+0127.830 (0) Dropbox chunked upload: 69.3 % uploaded (C3VTGbgXxRocSNwnkhIdMQ, 3145728)
+0131.250 (0) Dropbox chunked upload: 92.3 % uploaded (C3VTGbgXxRocSNwnkhIdMQ, 4194304)
+0132.802 (0) Dropbox chunked upload: 100 % uploaded (C3VTGbgXxRocSNwnkhIdMQ, 4542432)
+0134.086 (0) Recording as successfully uploaded: backup_2015-05-07-1700_Homeology_ef22b0ad9f80-themes.zip (6f51acbd707e30e078d36194b79f2c87)
+0134.099 (0) Deleting local file: backup_2015-05-07-1700_Homeology_ef22b0ad9f80-themes.zip: OK
+0134.102 (0) Dropbox: File upload success (backup_2015-05-07-1700_Homeology_ef22b0ad9f80-themes.zip): 4435 Kb in 12s (347 Kb/s)
+0134.387 (0) Dropbox quota usage: normal=4924.1 Mb, shared=102.9 Mb, total=5376 Mb, available=349 Mb
+0134.391 (0) Dropbox: Attempt to upload: backup_2015-05-07-1700_Homeology_ef22b0ad9f80-uploads.zip to: backup_2015-05-07-1700_Homeology_ef22b0ad9f80-uploads.zip
+0136.457 (0) Dropbox chunked upload: 1.1 % uploaded (Fd6LfmSX3zNsZBexPXiE8g, 1048576)
+0138.657 (0) Dropbox chunked upload: 2.2 % uploaded (Fd6LfmSX3zNsZBexPXiE8g, 2097152)
+0140.559 (0) Dropbox chunked upload: 3.3 % uploaded (Fd6LfmSX3zNsZBexPXiE8g, 3145728)
+0145.860 (0) Dropbox chunked upload: 4.4 % uploaded (Fd6LfmSX3zNsZBexPXiE8g, 4194304)
+0147.489 (0) Dropbox chunked upload: 5.5 % uploaded (Fd6LfmSX3zNsZBexPXiE8g, 5242880)
+0149.397 (0) Dropbox chunked upload: 6.6 % uploaded (Fd6LfmSX3zNsZBexPXiE8g, 6291456)
+0151.742 (0) Dropbox chunked upload: 7.8 % uploaded (Fd6LfmSX3zNsZBexPXiE8g, 7340032)
+0155.721 (0) Dropbox chunked upload: 8.9 % uploaded (Fd6LfmSX3zNsZBexPXiE8g, 8388608)
+0157.588 (0) Dropbox chunked upload: 10 % uploaded (Fd6LfmSX3zNsZBexPXiE8g, 9437184)
+0159.592 (0) Dropbox chunked upload: 11.1 % uploaded (Fd6LfmSX3zNsZBexPXiE8g, 10485760)
+0162.108 (0) Dropbox chunked upload: 12.2 % uploaded (Fd6LfmSX3zNsZBexPXiE8g, 11534336)
+0165.463 (0) Dropbox chunked upload: 13.3 % uploaded (Fd6LfmSX3zNsZBexPXiE8g, 12582912)
+0167.146 (0) Dropbox chunked upload: 14.4 % uploaded (Fd6LfmSX3zNsZBexPXiE8g, 13631488)
+0168.984 (0) Dropbox chunked upload: 15.5 % uploaded (Fd6LfmSX3zNsZBexPXiE8g, 14680064)
+0171.306 (0) Dropbox chunked upload: 16.6 % uploaded (Fd6LfmSX3zNsZBexPXiE8g, 15728640)
+0175.429 (0) Dropbox chunked upload: 17.7 % uploaded (Fd6LfmSX3zNsZBexPXiE8g, 16777216)
+0177.650 (0) Dropbox chunked upload: 18.8 % uploaded (Fd6LfmSX3zNsZBexPXiE8g, 17825792)
+0180.092 (0) Dropbox chunked upload: 19.9 % uploaded (Fd6LfmSX3zNsZBexPXiE8g, 18874368)
+0182.234 (0) Dropbox chunked upload: 21 % uploaded (Fd6LfmSX3zNsZBexPXiE8g, 19922944)
+0185.917 (0) Dropbox chunked upload: 22.2 % uploaded (Fd6LfmSX3zNsZBexPXiE8g, 20971520)
+0188.042 (0) Dropbox chunked upload: 23.3 % uploaded (Fd6LfmSX3zNsZBexPXiE8g, 22020096)
+0190.096 (0) Dropbox chunked upload: 24.4 % uploaded (Fd6LfmSX3zNsZBexPXiE8g, 23068672)
+0192.170 (0) Dropbox chunked upload: 25.5 % uploaded (Fd6LfmSX3zNsZBexPXiE8g, 24117248)
+0195.599 (0) Dropbox chunked upload: 26.6 % uploaded (Fd6LfmSX3zNsZBexPXiE8g, 25165824)
+0197.272 (0) Dropbox chunked upload: 27.7 % uploaded (Fd6LfmSX3zNsZBexPXiE8g, 26214400)
+0199.388 (0) Dropbox chunked upload: 28.8 % uploaded (Fd6LfmSX3zNsZBexPXiE8g, 27262976)
+0201.567 (0) Dropbox chunked upload: 29.9 % uploaded (Fd6LfmSX3zNsZBexPXiE8g, 28311552)
+0204.717 (0) Dropbox chunked upload: 31 % uploaded (Fd6LfmSX3zNsZBexPXiE8g, 29360128)
+0206.404 (0) Dropbox chunked upload: 32.1 % uploaded (Fd6LfmSX3zNsZBexPXiE8g, 30408704)
+0208.610 (0) Dropbox chunked upload: 33.2 % uploaded (Fd6LfmSX3zNsZBexPXiE8g, 31457280)
+0210.643 (0) Dropbox chunked upload: 34.3 % uploaded (Fd6LfmSX3zNsZBexPXiE8g, 32505856)
+0215.315 (0) Dropbox chunked upload: 35.4 % uploaded (Fd6LfmSX3zNsZBexPXiE8g, 33554432)
+0217.124 (0) Dropbox chunked upload: 36.6 % uploaded (Fd6LfmSX3zNsZBexPXiE8g, 34603008)
+0219.356 (0) Dropbox chunked upload: 37.7 % uploaded (Fd6LfmSX3zNsZBexPXiE8g, 35651584)
+0221.930 (0) Dropbox chunked upload: 38.8 % uploaded (Fd6LfmSX3zNsZBexPXiE8g, 36700160)
+0225.711 (0) Dropbox chunked upload: 39.9 % uploaded (Fd6LfmSX3zNsZBexPXiE8g, 37748736)
+0227.537 (0) Dropbox chunked upload: 41 % uploaded (Fd6LfmSX3zNsZBexPXiE8g, 38797312)
+0229.524 (0) Dropbox chunked upload: 42.1 % uploaded (Fd6LfmSX3zNsZBexPXiE8g, 39845888)
+0231.714 (0) Dropbox chunked upload: 43.2 % uploaded (Fd6LfmSX3zNsZBexPXiE8g, 40894464)
+0235.815 (0) Dropbox chunked upload: 44.3 % uploaded (Fd6LfmSX3zNsZBexPXiE8g, 41943040)
+0237.927 (0) Dropbox chunked upload: 45.4 % uploaded (Fd6LfmSX3zNsZBexPXiE8g, 42991616)
+0240.048 (0) Dropbox chunked upload: 46.5 % uploaded (Fd6LfmSX3zNsZBexPXiE8g, 44040192)
+0242.181 (0) Dropbox chunked upload: 47.6 % uploaded (Fd6LfmSX3zNsZBexPXiE8g, 45088768)
+0245.826 (0) Dropbox chunked upload: 48.7 % uploaded (Fd6LfmSX3zNsZBexPXiE8g, 46137344)
+0247.719 (0) Dropbox chunked upload: 49.8 % uploaded (Fd6LfmSX3zNsZBexPXiE8g, 47185920)
+0249.756 (0) Dropbox chunked upload: 51 % uploaded (Fd6LfmSX3zNsZBexPXiE8g, 48234496)
+0251.846 (0) Dropbox chunked upload: 52.1 % uploaded (Fd6LfmSX3zNsZBexPXiE8g, 49283072)
+0256.032 (0) The scheduled resumption is within 45 seconds - will reschedule
+0256.041 (0) Rescheduling resumption 1: moving to 345 seconds from now (1431018629)
+0256.052 (0) To decrease the likelihood of overlaps, increasing resumption interval to: 300 + 45 = 345
+0256.056 (0) Dropbox chunked upload: 53.2 % uploaded (Fd6LfmSX3zNsZBexPXiE8g, 50331648)
+0258.057 (0) Dropbox chunked upload: 54.3 % uploaded (Fd6LfmSX3zNsZBexPXiE8g, 51380224)
+0260.148 (0) Dropbox chunked upload: 55.4 % uploaded (Fd6LfmSX3zNsZBexPXiE8g, 52428800)
+0262.532 (0) Dropbox chunked upload: 56.5 % uploaded (Fd6LfmSX3zNsZBexPXiE8g, 53477376)
+0266.044 (0) Dropbox chunked upload: 57.6 % uploaded (Fd6LfmSX3zNsZBexPXiE8g, 54525952)
+0267.712 (0) Dropbox chunked upload: 58.7 % uploaded (Fd6LfmSX3zNsZBexPXiE8g, 55574528)
+0269.996 (0) Dropbox chunked upload: 59.8 % uploaded (Fd6LfmSX3zNsZBexPXiE8g, 56623104)
+0271.962 (0) Dropbox chunked upload: 60.9 % uploaded (Fd6LfmSX3zNsZBexPXiE8g, 57671680)
+0276.340 (0) Dropbox chunked upload: 62 % uploaded (Fd6LfmSX3zNsZBexPXiE8g, 58720256)
+0278.576 (0) Dropbox chunked upload: 63.1 % uploaded (Fd6LfmSX3zNsZBexPXiE8g, 59768832)
+0280.510 (0) Dropbox chunked upload: 64.2 % uploaded (Fd6LfmSX3zNsZBexPXiE8g, 60817408)
+0282.574 (0) Dropbox chunked upload: 65.3 % uploaded (Fd6LfmSX3zNsZBexPXiE8g, 61865984)
+0286.351 (0) Dropbox chunked upload: 66.5 % uploaded (Fd6LfmSX3zNsZBexPXiE8g, 62914560)
+0288.287 (0) Dropbox chunked upload: 67.6 % uploaded (Fd6LfmSX3zNsZBexPXiE8g, 63963136)
+0290.217 (0) Dropbox chunked upload: 68.7 % uploaded (Fd6LfmSX3zNsZBexPXiE8g, 65011712)
+0292.290 (0) Dropbox chunked upload: 69.8 % uploaded (Fd6LfmSX3zNsZBexPXiE8g, 66060288)
+0295.512 (0) Dropbox chunked upload: 70.9 % uploaded (Fd6LfmSX3zNsZBexPXiE8g, 67108864)
+0297.187 (0) Dropbox chunked upload: 72 % uploaded (Fd6LfmSX3zNsZBexPXiE8g, 68157440)
+0299.939 (0) Dropbox chunked upload: 73.1 % uploaded (Fd6LfmSX3zNsZBexPXiE8g, 69206016)
+0302.127 (0) Dropbox chunked upload: 74.2 % uploaded (Fd6LfmSX3zNsZBexPXiE8g, 70254592)
+0306.203 (0) Dropbox chunked upload: 75.3 % uploaded (Fd6LfmSX3zNsZBexPXiE8g, 71303168)
+0308.454 (0) Dropbox chunked upload: 76.4 % uploaded (Fd6LfmSX3zNsZBexPXiE8g, 72351744)
+0310.814 (0) Dropbox chunked upload: 77.5 % uploaded (Fd6LfmSX3zNsZBexPXiE8g, 73400320)
+0312.959 (0) Dropbox chunked upload: 78.6 % uploaded (Fd6LfmSX3zNsZBexPXiE8g, 74448896)
+0316.484 (0) The time we have been running (316.5) is approaching the resumption interval (345) - increasing resumption interval to 347
+0316.492 (0) Dropbox chunked upload: 79.7 % uploaded (Fd6LfmSX3zNsZBexPXiE8g, 75497472)
+0318.328 (0) The time we have been running (318.3) is approaching the resumption interval (347) - increasing resumption interval to 349
+0318.338 (0) Dropbox chunked upload: 80.9 % uploaded (Fd6LfmSX3zNsZBexPXiE8g, 76546048)
+0320.404 (0) The time we have been running (320.4) is approaching the resumption interval (349) - increasing resumption interval to 351
+0320.418 (0) Dropbox chunked upload: 82 % uploaded (Fd6LfmSX3zNsZBexPXiE8g, 77594624)
+0322.755 (0) The time we have been running (322.7) is approaching the resumption interval (351) - increasing resumption interval to 353
+0322.767 (0) Dropbox chunked upload: 83.1 % uploaded (Fd6LfmSX3zNsZBexPXiE8g, 78643200)
+0326.623 (0) The time we have been running (326.6) is approaching the resumption interval (353) - increasing resumption interval to 357
+0326.632 (0) Dropbox chunked upload: 84.2 % uploaded (Fd6LfmSX3zNsZBexPXiE8g, 79691776)
+0328.568 (0) The time we have been running (328.6) is approaching the resumption interval (357) - increasing resumption interval to 359
+0328.577 (0) Dropbox chunked upload: 85.3 % uploaded (Fd6LfmSX3zNsZBexPXiE8g, 80740352)
+0330.414 (0) The time we have been running (330.4) is approaching the resumption interval (359) - increasing resumption interval to 361
+0330.425 (0) Dropbox chunked upload: 86.4 % uploaded (Fd6LfmSX3zNsZBexPXiE8g, 81788928)
+0332.598 (0) The time we have been running (332.6) is approaching the resumption interval (361) - increasing resumption interval to 363
+0332.604 (0) Dropbox chunked upload: 87.5 % uploaded (Fd6LfmSX3zNsZBexPXiE8g, 82837504)
+0335.823 (0) The time we have been running (335.8) is approaching the resumption interval (363) - increasing resumption interval to 366
+0335.830 (0) Dropbox chunked upload: 88.6 % uploaded (Fd6LfmSX3zNsZBexPXiE8g, 83886080)
+0337.530 (0) The time we have been running (337.5) is approaching the resumption interval (366) - increasing resumption interval to 368
+0337.554 (0) Dropbox chunked upload: 89.7 % uploaded (Fd6LfmSX3zNsZBexPXiE8g, 84934656)
+0339.517 (0) The time we have been running (339.5) is approaching the resumption interval (368) - increasing resumption interval to 370
+0339.527 (0) Dropbox chunked upload: 90.8 % uploaded (Fd6LfmSX3zNsZBexPXiE8g, 85983232)
+0342.199 (0) The time we have been running (342.2) is approaching the resumption interval (370) - increasing resumption interval to 373
+0342.207 (0) Dropbox chunked upload: 91.9 % uploaded (Fd6LfmSX3zNsZBexPXiE8g, 87031808)
+0345.366 (0) The time we have been running (345.4) is approaching the resumption interval (373) - increasing resumption interval to 376
+0345.374 (0) Dropbox chunked upload: 93 % uploaded (Fd6LfmSX3zNsZBexPXiE8g, 88080384)
+0347.021 (0) The time we have been running (347) is approaching the resumption interval (376) - increasing resumption interval to 378
+0347.029 (0) Dropbox chunked upload: 94.1 % uploaded (Fd6LfmSX3zNsZBexPXiE8g, 89128960)
+0348.958 (0) The time we have been running (348.9) is approaching the resumption interval (378) - increasing resumption interval to 379
+0348.966 (0) Dropbox chunked upload: 95.3 % uploaded (Fd6LfmSX3zNsZBexPXiE8g, 90177536)
+0351.169 (0) The time we have been running (351.2) is approaching the resumption interval (379) - increasing resumption interval to 382
+0351.177 (0) Dropbox chunked upload: 96.4 % uploaded (Fd6LfmSX3zNsZBexPXiE8g, 91226112)
+0356.283 (0) The time we have been running (356.3) is approaching the resumption interval (382) - increasing resumption interval to 387
+0356.292 (0) Dropbox chunked upload: 97.5 % uploaded (Fd6LfmSX3zNsZBexPXiE8g, 92274688)
+0358.117 (0) The time we have been running (358.1) is approaching the resumption interval (387) - increasing resumption interval to 389
+0358.124 (0) Dropbox chunked upload: 98.6 % uploaded (Fd6LfmSX3zNsZBexPXiE8g, 93323264)
+0360.049 (0) The time we have been running (360) is approaching the resumption interval (389) - increasing resumption interval to 391
+0360.065 (0) Dropbox chunked upload: 99.7 % uploaded (Fd6LfmSX3zNsZBexPXiE8g, 94371840)
+0362.302 (0) The time we have been running (362.3) is approaching the resumption interval (391) - increasing resumption interval to 393
+0362.310 (0) Dropbox chunked upload: 100 % uploaded (Fd6LfmSX3zNsZBexPXiE8g, 94668931)
+0364.628 (0) Recording as successfully uploaded: backup_2015-05-07-1700_Homeology_ef22b0ad9f80-uploads.zip (d10c4175587eefcf848b38d8010c434e)
+0364.690 (0) Deleting local file: backup_2015-05-07-1700_Homeology_ef22b0ad9f80-uploads.zip: OK
+0364.695 (0) Dropbox: File upload success (backup_2015-05-07-1700_Homeology_ef22b0ad9f80-uploads.zip): 92450 Kb in 230s (401 Kb/s)
+0364.997 (0) Dropbox quota usage: normal=5014.4 Mb, shared=102.9 Mb, total=5376 Mb, available=258.7 Mb
+0365.002 (0) Dropbox: Attempt to upload: backup_2015-05-07-1700_Homeology_ef22b0ad9f80-others.zip to: backup_2015-05-07-1700_Homeology_ef22b0ad9f80-others.zip
+0366.476 (0) The time we have been running (366.5) is approaching the resumption interval (393) - increasing resumption interval to 397
+0366.484 (0) Dropbox chunked upload: 100 % uploaded (8gLBtdbGyFf1CBx4If_X0A, 2645)
+0367.843 (0) Recording as successfully uploaded: backup_2015-05-07-1700_Homeology_ef22b0ad9f80-others.zip (603708649804e8a14e7f18879f73449e)
+0367.860 (0) Deleting local file: backup_2015-05-07-1700_Homeology_ef22b0ad9f80-others.zip: OK
+0367.863 (0) Dropbox: File upload success (backup_2015-05-07-1700_Homeology_ef22b0ad9f80-others.zip): 2 Kb in 2s (0 Kb/s)
+0368.090 (0) Dropbox quota usage: normal=5014.4 Mb, shared=102.9 Mb, total=5376 Mb, available=258.7 Mb
+0368.094 (0) Dropbox: Attempt to upload: backup_2015-05-07-1700_Homeology_ef22b0ad9f80-db.gz to: backup_2015-05-07-1700_Homeology_ef22b0ad9f80-db.gz
+0369.499 (0) The time we have been running (369.5) is approaching the resumption interval (397) - increasing resumption interval to 400
+0369.507 (0) Dropbox chunked upload: 100 % uploaded (bfeD3IGRoFOFCmqbEgdV3Q, 198184)
+0371.490 (0) Recording as successfully uploaded: backup_2015-05-07-1700_Homeology_ef22b0ad9f80-db.gz (34d32f32ff1253592f164816e182f6f1)
+0371.524 (0) Deleting local file: backup_2015-05-07-1700_Homeology_ef22b0ad9f80-db.gz: OK
+0371.528 (0) Dropbox: File upload success (backup_2015-05-07-1700_Homeology_ef22b0ad9f80-db.gz): 193 Kb in 3s (56 Kb/s)
+0371.534 (0) Retain: beginning examination of existing backup sets; user setting: retain_files=2, retain_db=2
+0371.538 (0) Number of backup sets in history: 3
+0371.540 (0) Examining backup set with datestamp: 1431018028 (May 07 2015 17:00:28)
+0371.543 (0) 1431018028: db: this set includes a database (backup_2015-05-07-1700_Homeology_ef22b0ad9f80-db.gz); db count is now 1
+0371.556 (0) The time we have been running (371.5) is approaching the resumption interval (400) - increasing resumption interval to 402
+0371.561 (0) 1431018028: this backup set remains non-empty (1/1); will retain in history
+0371.564 (0) Examining backup set with datestamp: 1424381196 (Feb 19 2015 21:26:36)
+0371.567 (0) 1424381196: db: this set includes a database (backup_2015-02-19-2126_Homeology_a94dcdd31564-db.gz); db count is now 2
+0371.573 (0) 1424381196: this backup set remains non-empty (1/1); will retain in history
+0371.577 (0) Examining backup set with datestamp: 1424376072 (Feb 19 2015 20:01:12)
+0371.579 (0) 1424376072: db: this set includes a database (backup_2015-02-19-2001_Homeology_1d8a8a3cc27b-db.gz); db count is now 3
+0371.582 (0) 1424376072: db: over retain limit (2); will delete this database
+0371.585 (0) Delete file: backup_2015-02-19-2001_Homeology_1d8a8a3cc27b-db.gz, service=dropbox
+0371.588 (0) Dropbox: request deletion: backup_2015-02-19-2001_Homeology_1d8a8a3cc27b-db.gz
+0371.989 (0) Dropbox: delete succeeded
+0371.998 (0) plugins: 1424376072: over retain limit (2); will delete this file (backup_2015-02-19-2001_Homeology_1d8a8a3cc27b-plugins.zip)
+0372.001 (0) themes: 1424376072: over retain limit (2); will delete this file (backup_2015-02-19-2001_Homeology_1d8a8a3cc27b-themes.zip)
+0372.004 (0) uploads: 1424376072: over retain limit (2); will delete this file (backup_2015-02-19-2001_Homeology_1d8a8a3cc27b-uploads.zip)
+0372.007 (0) others: 1424376072: over retain limit (2); will delete this file (backup_2015-02-19-2001_Homeology_1d8a8a3cc27b-others.zip)
+0372.010 (0) Delete file: backup_2015-02-19-2001_Homeology_1d8a8a3cc27b-plugins.zip, service=dropbox
+0372.014 (0) Delete file: backup_2015-02-19-2001_Homeology_1d8a8a3cc27b-themes.zip, service=dropbox
+0372.017 (0) Delete file: backup_2015-02-19-2001_Homeology_1d8a8a3cc27b-uploads.zip, service=dropbox
+0372.019 (0) Delete file: backup_2015-02-19-2001_Homeology_1d8a8a3cc27b-others.zip, service=dropbox
+0372.022 (0) Dropbox: request deletion: backup_2015-02-19-2001_Homeology_1d8a8a3cc27b-plugins.zip
+0372.483 (0) Dropbox: delete succeeded
+0372.488 (0) Dropbox: request deletion: backup_2015-02-19-2001_Homeology_1d8a8a3cc27b-themes.zip
+0372.903 (0) Dropbox: delete succeeded
+0372.907 (0) Dropbox: request deletion: backup_2015-02-19-2001_Homeology_1d8a8a3cc27b-uploads.zip
+0373.364 (0) Dropbox: delete succeeded
+0373.369 (0) Dropbox: request deletion: backup_2015-02-19-2001_Homeology_1d8a8a3cc27b-others.zip
+0373.776 (0) Dropbox: delete succeeded
+0373.791 (0) The time we have been running (373.8) is approaching the resumption interval (402) - increasing resumption interval to 404
+0373.798 (0) 1424376072: this backup set is now empty; will remove from history
+0373.801 (0) 1424376072: deleting log file (log.1d8a8a3cc27b.txt)
+0373.873 (0) Retain: saving new backup history (sets now: 2) and finishing retain operation
+0373.880 (0) Resume backup (ef22b0ad9f80, 0): finish run
+0373.886 (0) Decremented the semaphore (fd) by 1
+0373.889 (0) Semaphore (fd) unlocked
+0373.892 (0) There were no errors in the uploads, so the 'resume' event (1) is being unscheduled
+0373.903 (0) No email will/can be sent - the user has not configured an email address.
+0373.906 (0) The backup apparently succeeded and is now complete
