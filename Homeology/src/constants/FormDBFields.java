@@ -1,4 +1,4 @@
-package form;
+package constants;
 
 public enum FormDBFields {
 	TIMESTAMP("TIMESTAMP"),
