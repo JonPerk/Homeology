@@ -1,5 +1,6 @@
 package mls;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -35,7 +36,7 @@ public class ImportMLS {
 	private final String bedsField2 = "# Bedrooms";
 	private final String bedsField3 = "All Beds"; 
 	
-	public void doImport(JSONObject table) throws JSONException{
+	public void doImport(JSONObject table) throws JSONException, IllegalArgumentException, ClassNotFoundException, SQLException{
 		HashMap<Integer,ArrayList<JSONObject>> areas = getAreas(table);
 		addAreaAvgs(areas);
 	}
@@ -65,7 +66,7 @@ public class ImportMLS {
 		return areas;
 	}
 	
-	private void addAreaAvgs(HashMap<Integer,ArrayList<JSONObject>> areas) throws JSONException{
+	private void addAreaAvgs(HashMap<Integer,ArrayList<JSONObject>> areas) throws JSONException, IllegalArgumentException, ClassNotFoundException, SQLException{
 		int beds = 0;
 		for(ArrayList<JSONObject> a : areas.values()){
 			if(a.isEmpty()){
@@ -167,12 +168,12 @@ public class ImportMLS {
 		}
 	}
 	
-	private void addRentArea(int areaNum, int beds, boolean isAtt, double[] prices) throws JSONException{
+	private void addRentArea(int areaNum, int beds, boolean isAtt, double[] prices) throws JSONException, IllegalArgumentException, ClassNotFoundException, SQLException{
 		Rent r = PropertyFactory.makeRent(areaNum, beds, isAtt);
 		r.setAllPriceBath(prices);
 	}
 	
-	private void addBuyArea(int areaNum, int beds, boolean isAtt, double[] prices) throws JSONException{
+	private void addBuyArea(int areaNum, int beds, boolean isAtt, double[] prices) throws JSONException, IllegalArgumentException, ClassNotFoundException, SQLException{
 		for(DownPayTypes dp : DownPayTypes.values()){
 			double d = dp.getDouble();
 			double[] mortgages = new double[BedsAndBaths.MAX_BATHS.getInt()];
@@ -184,7 +185,7 @@ public class ImportMLS {
 		}	
 	}
 	
-	public static void main(String[] args) throws JSONException{
+	public static void main(String[] args) throws JSONException, IllegalArgumentException, ClassNotFoundException, SQLException{
 		ImportMLS icsv = new ImportMLS();
 		ConvertExcel cx = new ConvertExcel();
 		JSONObject a = cx.CSVtoJSON("rentDet3b.xlsx");

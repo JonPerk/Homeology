@@ -1,11 +1,13 @@
 package mls.property;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 
 import constants.BedsAndBaths;
 import constants.DownPayTypes;
+import db.DBStatement;
 import mls.area.Area;
 import mls.area.AreaFactory;
 
@@ -20,7 +22,17 @@ public class PropertyFactory {
 	private static final ArrayList<HashMap<Area,Buy>> buys20dpDet = new ArrayList<HashMap<Area,Buy>>(BedsAndBaths.MAX_BEDS.getInt());
 	private static final HashMap<Double, ArrayList<HashMap<Area,Buy>>> downPaymentsAtt;
 	private static final HashMap<Double, ArrayList<HashMap<Area,Buy>>> downPaymentsDet;
+	private static DBStatement stmt = null;
 	static{
+		try {
+			stmt = new DBStatement();
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		downPaymentsAtt = new HashMap<Double, ArrayList<HashMap<Area,Buy>>>();
 		downPaymentsAtt.put(DownPayTypes.DP5Percent.getDouble(), buys5dpAtt);
 		downPaymentsAtt.put(DownPayTypes.DP10Percent.getDouble(), buys10dpAtt);
@@ -41,14 +53,14 @@ public class PropertyFactory {
 		}
 	}
 	
-	public static Rent makeRent(int area, int beds, boolean attached) throws IllegalArgumentException{
+	public static Rent makeRent(int area, int beds, boolean attached) throws IllegalArgumentException, ClassNotFoundException, SQLException{
 		if(attached)
 			return makeRentAtt(area, beds);
 		else
 			return makeRentDet(area, beds);
 	}
 	
-	private static Rent makeRentAtt(int area, int beds) throws IllegalArgumentException{
+	private static Rent makeRentAtt(int area, int beds) throws IllegalArgumentException, ClassNotFoundException, SQLException{
 		if(beds < BedsAndBaths.MIN_BEDS.getInt() || beds > BedsAndBaths.MAX_BEDS.getInt())
 			throw new IllegalArgumentException("Invalid number of beds " + beds);
 		Area a = AreaFactory.makeArea(area);
@@ -56,10 +68,11 @@ public class PropertyFactory {
 			return rentsAtt.get(beds-1).get(a);
 		Rent r = new Rent(a, beds, true);
 		rentsAtt.get(beds-1).put(a, r);
+		stmt.createRent(r);
 		return r;
 	}
 	
-	private static Rent makeRentDet(int area, int beds) throws IllegalArgumentException{
+	private static Rent makeRentDet(int area, int beds) throws IllegalArgumentException, ClassNotFoundException, SQLException{
 		if(beds < BedsAndBaths.MIN_BEDS.getInt() || beds > BedsAndBaths.MAX_BEDS.getInt())
 			throw new IllegalArgumentException("Invalid number of beds " + beds);
 		Area a = AreaFactory.makeArea(area);
@@ -67,17 +80,18 @@ public class PropertyFactory {
 			return rentsDet.get(beds-1).get(a);
 		Rent r = new Rent(a, beds, false);
 		rentsDet.get(beds-1).put(a, r);
+		stmt.createRent(r);
 		return r;
 	}
 	
-	public static Buy makeBuy(int area, int beds, boolean attached, double downPayment) throws IllegalArgumentException{
+	public static Buy makeBuy(int area, int beds, boolean attached, double downPayment) throws IllegalArgumentException, ClassNotFoundException, SQLException{
 		if(attached)
 			return makeBuyAtt(area, beds, downPayment);
 		else
 			return makeBuyDet(area, beds, downPayment);
 	}
 	
-	private static Buy makeBuyAtt(int area, int beds, double downPayment) throws IllegalArgumentException{
+	private static Buy makeBuyAtt(int area, int beds, double downPayment) throws IllegalArgumentException, ClassNotFoundException, SQLException{
 		if(beds < BedsAndBaths.MIN_BEDS.getInt() || beds > BedsAndBaths.MAX_BEDS.getInt())
 			throw new IllegalArgumentException("Invalid number of beds " + beds);
 		if(!downPaymentsAtt.containsKey(downPayment))
@@ -88,10 +102,11 @@ public class PropertyFactory {
 			return list.get(a);
 		Buy b = new Buy(a, beds, true, downPayment);
 		list.put(a, b);
+		stmt.createBuy(b);
 		return b;
 	}
 	
-	private static Buy makeBuyDet(int area, int beds, double downPayment) throws IllegalArgumentException{
+	private static Buy makeBuyDet(int area, int beds, double downPayment) throws IllegalArgumentException, ClassNotFoundException, SQLException{
 		if(beds < BedsAndBaths.MIN_BEDS.getInt() || beds > BedsAndBaths.MAX_BEDS.getInt())
 			throw new IllegalArgumentException("Invalid number of beds " + beds);
 		if(!downPaymentsDet.containsKey(downPayment))
@@ -102,6 +117,7 @@ public class PropertyFactory {
 			return list.get(a);
 		Buy b = new Buy(a, beds, false, downPayment);
 		list.put(a, b);
+		stmt.createBuy(b);
 		return b;
 	}
 	

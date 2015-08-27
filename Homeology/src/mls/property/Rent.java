@@ -1,9 +1,13 @@
 package mls.property;
 
+import java.sql.SQLException;
+
 import constants.BedsAndBaths;
+import db.DBStatement;
 import mls.area.Area;
 
 public class Rent {
+	//TODO date created, date modified
 	private final Area area;
 	private final int beds;
 	private final boolean attached;
@@ -12,33 +16,38 @@ public class Rent {
 	private double price1Bath;
 	private double price2Bath;
 	private double price3Bath;
+	private DBStatement stmt;
 	
 	
-	Rent(Area area, int beds, boolean attached){
+	Rent(Area area, int beds, boolean attached) throws ClassNotFoundException, SQLException{
 		this.area = area;
 		this.beds = beds;
 		this.attached = attached;
+		stmt = new DBStatement();
 	}
 	
-	public void setPrice1Bath(double price) throws IllegalArgumentException{
+	public void setPrice1Bath(double price) throws IllegalArgumentException, ClassNotFoundException, SQLException{
 		if(price < minPrice || price > maxPrice)
 			throw new IllegalArgumentException("Invalid price: " + price + ". Price must be in range: " + minPrice + "-" + maxPrice);
 		price1Bath = price;
+		stmt.updatePrice1Bath(this);
 	}
 	
-	public void setPrice2Bath(double price) throws IllegalArgumentException{
+	public void setPrice2Bath(double price) throws IllegalArgumentException, ClassNotFoundException, SQLException{
 		if(price < minPrice || price > maxPrice)
 			throw new IllegalArgumentException("Invalid price: " + price + ". Price must be in range: " + minPrice + "-" + maxPrice);
 		price2Bath = price;
+		stmt.updatePrice2Bath(this);
 	}
 	
-	public void setPrice3Bath(double price) throws IllegalArgumentException{
+	public void setPrice3Bath(double price) throws IllegalArgumentException, ClassNotFoundException, SQLException{
 		if(price < minPrice || price > maxPrice)
 			throw new IllegalArgumentException("Invalid price: " + price + ". Price must be in range: " + minPrice + "-" + maxPrice);
 		price3Bath = price;
+		stmt.updatePrice3Bath(this);
 	}
 	
-	public void setAllPriceBath(double[] prices) throws IllegalArgumentException {
+	public void setAllPriceBath(double[] prices) throws IllegalArgumentException, ClassNotFoundException, SQLException {
 		if(prices.length != BedsAndBaths.MAX_BATHS.getInt()){
 			throw new IllegalArgumentException("Invalid array length: " + prices.length + " must be" + BedsAndBaths.MAX_BATHS.getInt());
 		}

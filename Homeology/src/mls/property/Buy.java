@@ -1,11 +1,13 @@
 package mls.property;
 
+import java.sql.SQLException;
+
 import mls.area.Area;
 
 public class Buy extends Rent{
 	private final double downPayment;
 	
-	Buy(Area area, int beds, boolean attached, double downPayment) {
+	Buy(Area area, int beds, boolean attached, double downPayment) throws ClassNotFoundException, SQLException {
 		super(area, beds, attached);
 		this.downPayment = downPayment;
 	}
