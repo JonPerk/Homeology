@@ -1,0 +1,43 @@
+<!DOCTYPE>
+
+<html>
+<head>
+	<title> Homeology Console </title>
+	<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+	<link rel="icon" type="image/ico" href="../img/homeology_logo.ico.png"/>
+	<link rel="shortcut icon" href="./img/homeology_logo.ico.png"/>
+	<link rel="stylesheet" type="text/css" href="css\homeology.css"/>
+	<link rel="stylesheet" type="text/css" href="css\bootstrap-3.3.5-dist\css\bootstrap.css"/>
+	<link rel="stylesheet" type="text/css" href="css\bootstrap-3.3.5-dist\css\bootstrap.min.css"/>
+	<link rel="stylesheet" type="text/css" href="css\bootstrap-3.3.5-dist\css\bootstrap-theme.css"/>
+	<link rel="stylesheet" type="text/css" href="css\bootstrap-3.3.5-dist\css\bootstrap-theme.min.css"/>
+</head>
+
+<body>
+<header>
+	<div id="logo">
+		<img src="img/logo.png"/>
+	</div>
+	<h1><center> Admin Console Login <center></h1>
+</header>
+
+<div class="container">
+	<form id="loginForm">
+		<h2 class="form-signin-heading"> Please sign in </h2>
+		<label for="loginEmail" class="sr-only"> Email Address </label>
+		<input type="email" id="loginEmail" class="form-control" placeholder="Email address" required autofocus>
+		<br>
+		<label for="loginPassword" class="sr-only"> Password </label>
+		<input type="password" id="loginPassword" class="form-control" placeholder="Password" required>
+		<div class="checkbox">
+			<label id="remember">
+				<input type="checkbox" value="remember-me"> "Remember me"
+			</label>
+		</div>
+		<button onclick="location.href='../Homeology/Admin_home.html'" class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
+	</form>
+</div>
+
+
+</body>
+</html>
