@@ -30,28 +30,31 @@
 </header>
 
 <div class="container">
-	<table class="table">
-	<tr id="tableHeader">
-		<td id="tableHeader"> Type </td>
-		<td> Beds </td>
-		<td> Baths </td>
-		<td> Avg. Price </td>
-	</tr>
+	<table id="example" class="table">
+	<thead>
+		<tr id="tableHeader">
+			<td> Type </td>
+			<td> Beds </td>
+			<td> Baths </td>
+			<td> Avg. Price </td>
+		</tr>
 	<c:forEach items="${rents}" var="rent">
+	<tbody>
 		<tr>      
-	        <td>Rent</td>
-	        <td>${rent.beds}</td>
-	        <td>${rent.baths}</td>
-	        <td>$${rent.price}</td>
-    	</tr>
+		        <td>Rent</td>
+		        <td>${rent.beds}</td>
+		        <td>${rent.baths}</td>
+		        <td>$${rent.price}</td>
+    		</tr>
     </c:forEach>
     <c:forEach items="${buys}" var="buy">
 		<tr>      
-	        <td>Buy at ${buy.downPayment*100}%</td>
-	        <td>${buy.beds}</td>
-	        <td>${buy.baths}</td>
-	        <td>$${buy.price}</td> 
-    	</tr>
+		        <td>Buy at ${buy.downPayment*100}%</td>
+		        <td>${buy.beds}</td>
+		        <td>${buy.baths}</td>
+		        <td>$${buy.price}</td> 
+    		</tr>
+    	</tbody>
     </c:forEach>
 </table>
 </div>
