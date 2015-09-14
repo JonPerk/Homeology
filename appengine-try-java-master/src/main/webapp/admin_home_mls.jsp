@@ -44,18 +44,20 @@ Select a file to upload: <br />
 <br />
 <input type="submit" value="Upload File" />
 </form>
-<table class="table">
-	<tr id="tableHeader">
+<table id="example" class="table">
+	<thead>
 		<td id="tableHeader"> Area </td>
 		<td> City </td>
 		<td> Zip Codes </td>
-	</tr>
+	</thead>
 	<c:forEach items="${areas}" var="area">
+	<tbody>	
 		<tr>      
-	        <td><a href="view_area?areaId=${area.area}">${area.area}</a></td>
-	        <td><c:forEach items="${area.cities}" var="city">${city} </c:forEach></td>
-	        <td><c:forEach items="${area.zips}" var="zip">${zip} </c:forEach></td>
-    	</tr>
+		        <td><a href="view_area?areaId=${area.area}">${area.area}</a></td>
+		        <td><c:forEach items="${area.cities}" var="city">${city} </c:forEach></td>
+		        <td><c:forEach items="${area.zips}" var="zip">${zip} </c:forEach></td>
+	    	</tr>
+	</tbody>
     </c:forEach>
 </table>
 </div>
