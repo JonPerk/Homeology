@@ -23,7 +23,7 @@
 
 <header>
 	<div id="logo">
-		<img src="img/logo.png"/>
+		<a href="Admin_home.html"><img src="img/logo.png"/></a>
 	</div>
 	<h1> Admin Console </h1>
 </header>
