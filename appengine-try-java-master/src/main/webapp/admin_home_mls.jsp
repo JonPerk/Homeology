@@ -46,9 +46,11 @@ Select a file to upload: <br />
 </form>
 <table id="example" class="table">
 	<thead>
-		<td id="tableHeader"> Area </td>
-		<td> City </td>
-		<td> Zip Codes </td>
+		<tr id="tableHeader">
+			<td id="tableHeader"> Area </td>
+			<td> City </td>
+			<td> Zip Codes </td>
+		</tr>
 	</thead>
 	<c:forEach items="${areas}" var="area">
 	<tbody>	
