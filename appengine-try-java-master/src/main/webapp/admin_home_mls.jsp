@@ -30,7 +30,7 @@
 
 <header>
 	<div id="logo">
-		<a href="Admin_home.html"></a><img src="img/logo.png"/></a>
+		<a href="Admin_home.html"><img src="img/logo.png"/></a>
 	</div>
 	<h1> MLS Data </h1>
 </header>
