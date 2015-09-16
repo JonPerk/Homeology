@@ -16,6 +16,7 @@
 	<link rel="icon" type="image/ico" href="../img/homeology_logo.ico.png"/>
 	<link rel="shortcut icon" href="../img/homeology_logo.ico.png"/>
 	<link rel="stylesheet" type="text/css" href="css\homeology.css"/>
+	<link rel="stylesheet" type="text/css" href="css\DataTables-1.10.9.css"/>
 	<link rel="stylesheet" type="text/css" href="css\bootstrap-3.3.5-dist\css\bootstrap.css"/>
 	<link rel="stylesheet" type="text/css" href="css\bootstrap-3.3.5-dist\css\bootstrap.min.css"/>
 	<link rel="stylesheet" type="text/css" href="css\bootstrap-3.3.5-dist\css\bootstrap-theme.css"/>
@@ -30,7 +31,7 @@
 
 <header>
 	<div id="logo">
-		<a href="Admin_home.html"></a><img src="img/logo.png"/></a>
+		<a href="Admin_home.html"><img src="img/logo.png"/></a>
 	</div>
 	<h1> MLS Data </h1>
 </header>
@@ -43,21 +44,28 @@ Select a file to upload: <br />
 <br />
 <input type="submit" value="Upload File" />
 </form>
-<table class="table">
-	<tr id="tableHeader">
-		<td id="tableHeader"> Area </td>
-		<td> City </td>
-		<td> Zip Codes </td>
-	</tr>
+<table id="example" class="table">
+	<thead>
+		<tr id="tableHeader">
+			<td id="tableHeader"> Area </td>
+			<td> City </td>
+			<td> Zip Codes </td>
+		</tr>
+	</thead>
 	<c:forEach items="${areas}" var="area">
+	<tbody>	
 		<tr>      
-	        <td><a href="view_area?areaId=${area.area}">${area.area}</a></td>
-	        <td><c:forEach items="${area.cities}" var="city">${city} </c:forEach></td>
-	        <td><c:forEach items="${area.zips}" var="zip">${zip} </c:forEach></td>
-    	</tr>
+		        <td><a href="view_area?areaId=${area.area}">${area.area}</a></td>
+		        <td><c:forEach items="${area.cities}" var="city">${city} </c:forEach></td>
+		        <td><c:forEach items="${area.zips}" var="zip">${zip} </c:forEach></td>
+	    	</tr>
+	</tbody>
     </c:forEach>
 </table>
 </div>
 
+	<script type="text/javascript" src="js/jquery-1.11.3.min.js"></script>
+	<script type="text/javascript" src="js/DataTables-1.10.9.js"></script>	
+	<script type="text/javascript" src="js/app.js"></script>
 </body>
 </html>
