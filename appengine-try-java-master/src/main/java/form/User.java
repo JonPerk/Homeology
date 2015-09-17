@@ -1,17 +1,30 @@
 package form;
 
+import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.nio.ByteBuffer;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.UUID;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
+import org.json.JSONException;
+
+import mls.ImportMLS;
 import constants.FormDBFields;
 import constants.SpreadsheetFields;
 import constants.UserObjectFields;
+import db.DBConnection;
 
 public class User {
-	private Date timestamp;
+	private static final Logger log = Logger.getLogger(DBConnection.class.getName());
+	private final byte[] id;
+	private final Date created;
+	private Date modified;
 	private String fname;
 	private String moveReason;
 	private String currentLoc;
@@ -21,14 +34,15 @@ public class User {
 	private int baths;
 	private int workZip;
 	private int workZip2;
-	private int commuteTime;
+	private double commuteTime;
 	private String transMode; //possible enum
 	private String desiredLocs;
 	private String desiredRegion;
 	private String rentOrBuy; //possible enum
 	private String email;
 	private String promoCode;
-	private double priceRangeBuy;
+	private double priceRangeBuyMin;
+	private double priceRangeBuyMax;
 	private double monthlyMortgage;
 	private double downPayment;
 	private boolean needsSchool;
@@ -53,36 +67,109 @@ public class User {
 	private String phone;
 	private String summary;
 	private String assigned;
-	private String comment;
-	private String status;
+	private String comments;
+	private String currentStatus;
 	private Date handOffDate;
 	private ArrayList<Integer> matchedAreas;
 	
 	public User(){
-		timestamp = new Date();
+		UUID uuid = UUID.randomUUID();
+		ByteBuffer bb = ByteBuffer.wrap(new byte[16]);
+	    bb.putLong(uuid.getMostSignificantBits());
+	    bb.putLong(uuid.getLeastSignificantBits());
+	    id = bb.array();
+		created = new Date();
+		modified = created;
 	}
 	
-	public User(HashMap<String, Object> args){
-		timestamp = new Date();
-		for(FormDBFields s : FormDBFields.values()){
-			if(args.containsKey(s.toString())){
-				try{
-					Method m = User.class.getMethod("set" + UserObjectFields.valueOf(s.name()).toString(), UserObjectFields.valueOf(s.name()).toClass());
-					m.invoke(this, args.get(s.toString()));
-				}
-				catch(Exception e){
-					e.printStackTrace();
-				}
+	public User(HashMap<String, Object> args, DBConnection conn) throws SQLException{
+		UUID uuid = UUID.randomUUID();
+		ByteBuffer bb = ByteBuffer.wrap(new byte[16]);
+	    bb.putLong(uuid.getMostSignificantBits());
+	    bb.putLong(uuid.getLeastSignificantBits());
+	    id = bb.array();
+		created = new Date();
+		modified = created;
+		for(UserObjectFields uof : UserObjectFields.values()){
+			String s = uof.toObjectField();
+			if(args.containsKey(s)){
+					Method m;
+					try {
+						Class[] cl = new Class[1];
+						cl[0] = uof.toJavaClass();
+						m = User.class.getMethod("set" + s, cl);
+						m.invoke(this, args.get(s));
+					} catch (NoSuchMethodException e) {
+						log.log(Level.SEVERE, e.getLocalizedMessage(), e);
+					} catch (SecurityException e) {
+						log.log(Level.SEVERE, e.getLocalizedMessage(), e);
+					} catch (IllegalAccessException e) {
+						log.log(Level.SEVERE, e.getLocalizedMessage(), e);
+					} catch (IllegalArgumentException e) {
+						log.log(Level.SEVERE, e.getLocalizedMessage(), e);
+					} catch (InvocationTargetException e) {
+						log.log(Level.SEVERE, e.getLocalizedMessage(), e);
+					}
+				
+			}
+		}
+		conn.createUser(this);
+	}
+	
+	public User(HashMap<String, Object> args) throws SQLException{
+		UUID uuid = UUID.randomUUID();
+		ByteBuffer bb = ByteBuffer.wrap(new byte[16]);
+	    bb.putLong(uuid.getMostSignificantBits());
+	    bb.putLong(uuid.getLeastSignificantBits());
+	    id = bb.array();
+		created = new Date();
+		modified = created;
+		for(UserObjectFields uof : UserObjectFields.values()){
+			String s = uof.toObjectField();
+			if(args.containsKey(s)){
+					Method m;
+					try {
+						Class[] cl = new Class[1];
+						cl[0] = uof.toJavaClass();
+						m = User.class.getMethod("set" + s, cl);
+						m.invoke(this, args.get(s));
+					} catch (NoSuchMethodException e) {
+						log.log(Level.SEVERE, e.getLocalizedMessage(), e);
+					} catch (SecurityException e) {
+						log.log(Level.SEVERE, e.getLocalizedMessage(), e);
+					} catch (IllegalAccessException e) {
+						log.log(Level.SEVERE, e.getLocalizedMessage(), e);
+					} catch (IllegalArgumentException e) {
+						log.log(Level.SEVERE, e.getLocalizedMessage(), e);
+					} catch (InvocationTargetException e) {
+						log.log(Level.SEVERE, e.getLocalizedMessage(), e);
+					}
+				
 			}
 		}
 	}
-
-	public Date getTimestamp() {
-		return timestamp;
+	
+	public byte[] getId() {
+		return id;
+	}
+	
+	public UUID getUUID() {
+		ByteBuffer bb = ByteBuffer.wrap(id);
+		long firstLong = bb.getLong(); 
+		long secondLong = bb.getLong(); 
+		return new UUID(firstLong, secondLong);
+	}
+	
+	public Date getModified() {
+		return modified;
 	}
 
-	public void setTimestamp(Date timestamp) {
-		this.timestamp = timestamp;
+	public void setModified(Date modified) {
+		this.modified = modified;
+	}
+
+	public Date getCreated() {
+		return created;
 	}
 
 	public String getFname() {
@@ -157,11 +244,11 @@ public class User {
 		this.workZip2 = workZip2;
 	}
 
-	public int getCommuteTime() {
+	public double getCommuteTime() {
 		return commuteTime;
 	}
 
-	public void setCommuteTime(int commuteTime) {
+	public void setCommuteTime(double commuteTime) {
 		this.commuteTime = commuteTime;
 	}
 
@@ -213,12 +300,20 @@ public class User {
 		this.promoCode = promoCode;
 	}
 
-	public double getPriceRangeBuy() {
-		return priceRangeBuy;
+	public double getPriceRangeBuyMin() {
+		return priceRangeBuyMin;
 	}
 
-	public void setPriceRangeBuy(double priceRangeBuy) {
-		this.priceRangeBuy = priceRangeBuy;
+	public void setPriceRangeBuyMin(double priceRangeBuy) {
+		this.priceRangeBuyMin = priceRangeBuy;
+	}
+	
+	public double getPriceRangeBuyMax() {
+		return priceRangeBuyMax;
+	}
+
+	public void setPriceRangeBuyMax(double priceRangeBuy) {
+		this.priceRangeBuyMax = priceRangeBuy;
 	}
 
 	public double getMonthlyMortgage() {
@@ -237,7 +332,7 @@ public class User {
 		this.downPayment = downPayment;
 	}
 
-	public boolean isNeedsSchool() {
+	public boolean getNeedsSchool() {
 		return needsSchool;
 	}
 
@@ -253,7 +348,7 @@ public class User {
 		this.monthlyRent = monthlyRent;
 	}
 
-	public boolean isNeedsParking() {
+	public boolean getNeedsParking() {
 		return needsParking;
 	}
 
@@ -413,20 +508,20 @@ public class User {
 		this.assigned = assigned;
 	}
 
-	public String getComment() {
-		return comment;
+	public String getComments() {
+		return comments;
 	}
 
-	public void setComment(String comment) {
-		this.comment = comment;
+	public void setComments(String comment) {
+		this.comments = comment;
 	}
 
-	public String getStatus() {
-		return status;
+	public String getCurrentStatus() {
+		return currentStatus;
 	}
 
-	public void setStatus(String status) {
-		this.status = status;
+	public void setCurrentStatus(String status) {
+		this.currentStatus = status;
 	}
 
 	public Date getHandOffDate() {
@@ -441,9 +536,63 @@ public class User {
 		return matchedAreas;
 	}
 
+	public void setMatchedAreas(ArrayList<Integer> matchedAreas, DBConnection conn) throws SQLException {
+		this.matchedAreas = matchedAreas;
+		conn.updateMatchedAreas(id, matchedAreas);
+	}
+	
 	public void setMatchedAreas(ArrayList<Integer> matchedAreas) {
 		this.matchedAreas = matchedAreas;
 	}
 	
-	
+	public static void main(String[] args){
+		ImportUsers iu = new ImportUsers();
+		DBConnection db = null;
+		try {
+			db = new DBConnection();
+			ImportMLS im = new ImportMLS();
+			String results = "email+Address=efe@gg.ggg"
+					+ "&Select+Your+Preferred+Regions=%5BLjava.lang.Object;@571fb1d"
+					+ "&Mortgage+Down+Payment=20%25"
+					+ "&How+are+things+going+with+your+Community+Search+Process?=I+haven't+started+any+research"
+					+ "&Type+of+Housing+You+Want=I'm+open+to+options!"
+					+ "&Bathrooms+You+Require=2%2B"
+					+ "&First+Name=jon"
+					+ "&Enter+Promo+Code+Here"
+					+ "&Neighborhoods+or+Cities+You+are+Currently+Interested"
+					+ "&Desired+Move+Date=01-01"
+					+ "&Do+you+have+a+little+more+time+to+to+continue+with+Lifestyle+Questions?=Complete+later+by+email+or+phone"
+					+ "&Reason+for+Your+Move=Relocating+from+outside+the+area"
+					+ "&Provide+Work+Zip+Code=60614"
+					+ "&If+applicable,+provide+other+resident's+work+Zip+Code&Maximum=5678901"
+					+ "&Price+Range+for+Purchasing+a+Home.+Minimum=4567890"
+					+ "&City+or+Neighborhood+You+Live+Now"
+					+ "&Bedrooms+You+Require=2"
+					+ "&Monthly+Payment+you+are+Comfortable+with+for+your+Total+Housing+Expense=1500"
+					+ "&Please+provide+your+phone+number"
+					+ "&Are+You+Buying+or+Renting?=Buying"
+					+ "&MAXIMUM+Time+-+You+and+Other+Household+Members+will+Allow+for+Commuting+to+Work=0.5 hr.";
+			iu.addNewUser(results, db);
+		} catch (ClassNotFoundException e) {
+			if(db != null)
+				db.close();
+			log.log(Level.SEVERE, e.getLocalizedMessage(), e);
+		} catch (SQLException e) {
+			if(db != null)
+				db.close();
+			log.log(Level.SEVERE, e.getLocalizedMessage(), e);
+		} catch (IllegalArgumentException e) {
+			if(db != null)
+				db.close();
+			log.log(Level.SEVERE, e.getLocalizedMessage(), e);
+		} catch (IOException e) {
+			if(db != null)
+				db.close();
+			log.log(Level.SEVERE, e.getLocalizedMessage(), e);
+		} catch (JSONException e) {
+			if(db != null)
+				db.close();
+			log.log(Level.SEVERE, e.getLocalizedMessage(), e);
+		}
+	}
 }

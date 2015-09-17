@@ -27,6 +27,7 @@ public class ImportMLS {
 	private final double stdTaxRate = .00529;
 	private final String areaField = "Area";
 	private final String cityField = "City";
+	private final String countyField = "County";
 	private final String buyPriceField = "Sold Price";
 	private final String rentPriceField = "RP/RNP";
 	private final String buyZipField = "Zip Code";
@@ -140,7 +141,12 @@ public class ImportMLS {
 			
 			boolean isAtt = false;
 			int areaNum = a.get(0).getInt(areaField);
-			String city = a.get(0).getString(cityField);
+			String city = null;
+			String county = null;
+			if(a.contains(cityField))
+				city = a.get(0).getString(cityField);
+			if(a.contains(countyField))
+				county = a.get(0).getString(countyField);
 			HashSet<Integer> zips = new HashSet<Integer>();
 			double[] totalPrices = new double[BedsAndBaths.MAX_BATHS.getInt()];
 			int[] counts = new int[BedsAndBaths.MAX_BATHS.getInt()];
@@ -174,7 +180,14 @@ public class ImportMLS {
 					totalPrices[i] = totalPrices[i] / counts[i];
 				}
 			}
-			Area area = AreaFactory.makeArea(areaNum, city, zips, conn);
+			if(city != null){
+				AreaFactory.makeArea(areaNum, city, zips, conn);
+				if(county != null)
+					conn.createCounty(city, county);
+			}
+			else{
+				AreaFactory.makeArea(areaNum, zips, conn);
+			}
 			if(isRent){
 				addRentArea(areaNum, beds, isAtt, totalPrices, conn);
 			}
