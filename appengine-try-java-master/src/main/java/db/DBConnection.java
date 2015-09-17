@@ -30,7 +30,7 @@ import form.User;
 public class DBConnection {
 	private String url;
 	private static final Logger log = Logger.getLogger(DBConnection.class.getName());
-	private final Connection conn;
+	private volatile Connection conn;
 	
 	public DBConnection() throws ClassNotFoundException, SQLException {
 		if (SystemProperty.environment.value() ==
@@ -49,7 +49,7 @@ public class DBConnection {
 		conn = DriverManager.getConnection(url);
 	}
 	
-	public void createUser(User user) throws SQLException{
+	public synchronized void createUser(User user) throws SQLException{
 		PreparedStatement stmtCheck = null;
 		PreparedStatement stmtUpdate = null;
 		PreparedStatement stmtCheck2 = null;
@@ -240,7 +240,7 @@ public class DBConnection {
 		}
 	}
 	
-	public ArrayList<User> getUsers() throws SQLException{
+	public synchronized ArrayList<User> getUsers() throws SQLException{
 		PreparedStatement stmt = null;
 		PreparedStatement stmt2 = null;
 		ResultSet rs = null;
@@ -290,7 +290,7 @@ public class DBConnection {
 		}
 	}
 	
-	public void updateMatchedAreas(byte[] id, ArrayList<Integer> areas) throws SQLException{
+	public synchronized void updateMatchedAreas(byte[] id, ArrayList<Integer> areas) throws SQLException{
 		PreparedStatement stmtCheck = null;
 		PreparedStatement stmtUpdate = null;
 		try{
@@ -317,7 +317,7 @@ public class DBConnection {
 		}
 	}
 	
-	public void createArea(Area area) throws ClassNotFoundException, SQLException{
+	public synchronized void createArea(Area area) throws ClassNotFoundException, SQLException{
 		PreparedStatement stmtCheck = null;
 		PreparedStatement stmtUpdate = null;
 		ResultSet rs = null;
@@ -436,7 +436,7 @@ public class DBConnection {
 		}
 	}
 	
-	public void createRent(Rent rent) throws ClassNotFoundException, SQLException{
+	public synchronized void createRent(Rent rent) throws ClassNotFoundException, SQLException{
 		PreparedStatement stmtCheck = null;
 		PreparedStatement stmtUpdate = null;
 		ResultSet rs = null;
@@ -497,7 +497,7 @@ public class DBConnection {
 		}
 	}
 	
-	public void createCounty(String city, String county) throws SQLException{
+	public synchronized void createCounty(String city, String county) throws SQLException{
 		PreparedStatement stmtCheck = null;
 		PreparedStatement stmtUpdate = null;
 		ResultSet rs = null;
@@ -529,7 +529,7 @@ public class DBConnection {
 			} catch(SQLException e){}
 		}
 	}
-	public void createBuy(Buy buy) throws ClassNotFoundException, SQLException{
+	public synchronized void createBuy(Buy buy) throws ClassNotFoundException, SQLException{
 		PreparedStatement stmtCheck = null;
 		PreparedStatement stmtUpdate = null;
 		ResultSet rs = null;

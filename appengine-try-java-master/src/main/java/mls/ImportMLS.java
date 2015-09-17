@@ -4,6 +4,8 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import mls.area.Area;
 import mls.area.AreaFactory;
@@ -22,6 +24,7 @@ import db.DBConnection;
 import excel.ConvertExcel;
 
 public class ImportMLS {
+	private static final Logger log = Logger.getLogger(ImportMLS.class.getName());
 	private final double stdIntRate = .00375;
 	private final int stdNumPayments = 360;
 	private final double stdTaxRate = .00529;
@@ -30,6 +33,7 @@ public class ImportMLS {
 	private final String countyField = "County";
 	private final String buyPriceField = "Sold Price";
 	private final String rentPriceField = "RP/RNP";
+	private final String rentPriceField2 = "Rent Search Price";
 	private final String buyZipField = "Zip Code";
 	private final String rentZipField = "Zip";
 	private final String fullBathField = "# Full Baths";
@@ -92,8 +96,13 @@ public class ImportMLS {
 			price = buyPriceField;
 			zip = buyZipField;
 		}
-		else{
-			price = rentPriceField;
+		else {
+			if(first.has(rentPriceField)){
+				price = rentPriceField;
+			}
+			else{
+				price = rentPriceField2;
+			}
 			zip = rentZipField;
 			isRent = true;
 		}
@@ -143,9 +152,9 @@ public class ImportMLS {
 			int areaNum = a.get(0).getInt(areaField);
 			String city = null;
 			String county = null;
-			if(a.contains(cityField))
+			if(a.get(0).has(cityField))
 				city = a.get(0).getString(cityField);
-			if(a.contains(countyField))
+			if(a.get(0).has(countyField))
 				county = a.get(0).getString(countyField);
 			HashSet<Integer> zips = new HashSet<Integer>();
 			double[] totalPrices = new double[BedsAndBaths.MAX_BATHS.getInt()];
@@ -181,6 +190,7 @@ public class ImportMLS {
 				}
 			}
 			if(city != null){
+				log.log(Level.INFO, "Found City " + city);
 				AreaFactory.makeArea(areaNum, city, zips, conn);
 				if(county != null)
 					conn.createCounty(city, county);
