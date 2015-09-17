@@ -30,13 +30,13 @@
 </header>
 
 <div class="container">
-	<table id="example" class="table">
+	<table id="example" class="table table-hover">
 	<thead>
 		<tr id="tableHeader">
-			<td> Type </td>
-			<td> Beds </td>
-			<td> Baths </td>
-			<td> Avg. Price </td>
+			<th> Type </th>
+			<th> Beds </th>
+			<th> Baths </th>
+			<th> Avg. Price </th>
 		</tr>
 	<c:forEach items="${rents}" var="rent">
 	<tbody>
