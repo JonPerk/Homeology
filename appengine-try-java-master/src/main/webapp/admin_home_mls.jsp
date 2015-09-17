@@ -44,12 +44,12 @@ Select a file to upload: <br />
 <br />
 <input type="submit" value="Upload File" />
 </form>
-<table id="example" class="table">
+<table id="example" class="table table-hover">
 	<thead>
 		<tr id="tableHeader">
-			<td id="tableHeader"> Area </td>
-			<td> City </td>
-			<td> Zip Codes </td>
+			<th id="tableHeader"> Area </th>
+			<th> City </th>
+			<th> Zip Codes </th>
 		</tr>
 	</thead>
 	<c:forEach items="${areas}" var="area">
