@@ -30,6 +30,7 @@ import com.google.appengine.api.taskqueue.TaskOptions;
 
 import db.DBConnection;
 import excel.ConvertExcel;
+import exception.SpreadSheetSizeException;
 
 public class Worker extends HttpServlet {
 	private static final Logger log = Logger.getLogger(Worker.class.getName());
@@ -82,6 +83,10 @@ public class Worker extends HttpServlet {
 				conn.close();
 			log.log(Level.SEVERE, e.getLocalizedMessage(), e);
 		} catch (SQLException e) {
+			if(conn != null)
+				conn.close();
+			log.log(Level.SEVERE, e.getLocalizedMessage(), e);
+		} catch (SpreadSheetSizeException e) {
 			if(conn != null)
 				conn.close();
 			log.log(Level.SEVERE, e.getLocalizedMessage(), e);

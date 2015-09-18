@@ -38,8 +38,11 @@
 			<th> Baths </th>
 			<th> Avg. Price </th>
 		</tr>
-	<c:forEach items="${rents}" var="rent">
 	<tbody>
+	<c:choose>
+	<c:when test="${empty rents}"></c:when>
+	<c:otherwise>
+	<c:forEach items="${rents}" var="rent">
 		<tr>      
 		        <td>Rent</td>
 		        <td>${rent.beds}</td>
@@ -47,6 +50,10 @@
 		        <td>$${rent.price}</td>
     		</tr>
     </c:forEach>
+    </c:otherwise></c:choose>
+    <c:choose>
+    <c:when test="${empty buys}"></c:when>
+    <c:otherwise>
     <c:forEach items="${buys}" var="buy">
 		<tr>      
 		        <td>Buy at ${buy.downPayment*100}%</td>
@@ -54,8 +61,10 @@
 		        <td>${buy.baths}</td>
 		        <td>$${buy.price}</td> 
     		</tr>
-    	</tbody>
     </c:forEach>
+    </c:otherwise>
+    </c:choose>
+    </tbody>
 </table>
 </div>
 

@@ -3,6 +3,7 @@ package mls.property;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.HashMap;
 
 import constants.BedsAndBaths;
@@ -29,15 +30,15 @@ public class PropertyFactory {
 		}
 	}*/
 	
-	public static Rent makeRent(int area, int beds, int baths, boolean attached, double price, DBConnection conn) throws IllegalArgumentException, ClassNotFoundException, SQLException{
+	public synchronized static Rent makeRent(int area, int beds, int baths, boolean attached, double price, int count, DBConnection conn) throws IllegalArgumentException, ClassNotFoundException, SQLException{
 		if(price < minPrice || price > maxPrice)
 			throw new IllegalArgumentException("Invalid price: " + price + ". Price must be in range: " + minPrice + "-" + maxPrice);
 		Rent r = makeRent(area, beds, baths, attached, conn);
-		r.setPrice(price, conn);
+		r.setPrice(price, count, new Date(), conn);
 		return r;
 	}
 	
-	public static Rent makeRent(int area, int beds, int baths, boolean attached, DBConnection conn) throws IllegalArgumentException, ClassNotFoundException, SQLException{
+	public synchronized static Rent makeRent(int area, int beds, int baths, boolean attached, DBConnection conn) throws IllegalArgumentException, ClassNotFoundException, SQLException{
 		if(beds < BedsAndBaths.MIN_BEDS.getInt() || beds > BedsAndBaths.MAX_BEDS.getInt())
 			throw new IllegalArgumentException("Invalid number of beds " + beds);
 		if(baths < BedsAndBaths.MIN_BATHS.getInt() || baths > BedsAndBaths.MAX_BATHS.getInt())
@@ -48,20 +49,20 @@ public class PropertyFactory {
 		}
 		Rent r = new Rent(area, beds, baths, attached);
 		conn.createRent(r);
-		r.setPrice(conn.getPrice(area, beds, baths, attached, r.getDownPayment()), conn);
+		r.setDBPrices(conn.getAreaPrices(area, beds, baths, attached, r.getDownPayment()));
 		rents.put(id, r);
 		return r;
 	}
 	
-	public static Buy makeBuy(int area, int beds, int baths, boolean attached, double downPayment, double price, DBConnection conn) throws IllegalArgumentException, ClassNotFoundException, SQLException{
+	public synchronized static Buy makeBuy(int area, int beds, int baths, boolean attached, double downPayment, double price, int count, DBConnection conn) throws IllegalArgumentException, ClassNotFoundException, SQLException{
 		if(price < minPrice || price > maxPrice)
 			throw new IllegalArgumentException("Invalid price: " + price + ". Price must be in range: " + minPrice + "-" + maxPrice);
 		Buy b = makeBuy(area, beds, baths, attached, downPayment, conn);
-		b.setPrice(price, conn);
+		b.setPrice(price, count, new Date(), conn);
 		return b;
 	}
 	
-	public static Buy makeBuy(int area, int beds, int baths, boolean attached, double downPayment, DBConnection conn) throws IllegalArgumentException, ClassNotFoundException, SQLException{
+	public synchronized static Buy makeBuy(int area, int beds, int baths, boolean attached, double downPayment, DBConnection conn) throws IllegalArgumentException, ClassNotFoundException, SQLException{
 		if(beds < BedsAndBaths.MIN_BEDS.getInt() || beds > BedsAndBaths.MAX_BEDS.getInt())
 			throw new IllegalArgumentException("Invalid number of beds " + beds);
 		if(baths < BedsAndBaths.MIN_BATHS.getInt() || baths > BedsAndBaths.MAX_BATHS.getInt())
@@ -74,7 +75,7 @@ public class PropertyFactory {
 		}
 		Buy b = new Buy(area, beds, baths, attached, downPayment);
 		conn.createBuy(b);
-		b.setPrice(conn.getPrice(area, beds, baths, attached, downPayment), conn);
+		b.setDBPrices(conn.getAreaPrices(area, beds, baths, attached, b.getDownPayment()));
 		buys.put(id, b);
 		return b;
 	}

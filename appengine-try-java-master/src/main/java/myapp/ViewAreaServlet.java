@@ -25,6 +25,14 @@ public class ViewAreaServlet extends HttpServlet {
         	conn = new DBConnection();
         	ArrayList<Rent> rents = conn.getAreaRents(id);
             ArrayList<Buy> buys = conn.getAreaBuys(id);
+            for(int i = 0; i < rents.size(); i++){
+            	if(rents.get(i) != null && rents.get(i).getPrice() == 0)
+            		rents.remove(i);
+            }
+            for(int i = 0; i < buys.size(); i++){
+            	if(buys.get(i) != null && buys.get(i).getPrice() == 0)
+            		buys.remove(i);
+            }
 	        //Rent r = rents.get(0);
 	        //resp.setContentType("text/plain");
 	    	//resp.getWriter().println(r.toString());

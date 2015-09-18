@@ -6,6 +6,7 @@ import java.lang.reflect.Method;
 import java.nio.ByteBuffer;
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.logging.Level;
@@ -14,6 +15,7 @@ import java.util.logging.Logger;
 import mls.area.Area;
 import mls.area.AreaFactory;
 import mls.property.Buy;
+import mls.property.PriceDTO;
 import mls.property.PropertyFactory;
 import mls.property.Rent;
 import myapp.Worker;
@@ -450,14 +452,18 @@ public class DBConnection {
 			stmtCheck.setBoolean(4, rent.isAttached());		
 			rs = stmtCheck.executeQuery();
 			if(!rs.first()){
-				s = "INSERT INTO Rent (MLS_ID, Beds, Baths, Attached, Price)"
-						+ " VALUES (?,?,?,?,?);";
+				s =  "INSERT INTO Rent (MLS_ID, Beds, Baths, Attached, Price, Price_1_Month_Old, Price_2_Month_Old, Last_Count, Last_Month_Update)"
+						+ " VALUES (?,?,?,?,?,?,?,?,?);";
 				stmtUpdate = conn.prepareStatement(s);
 				stmtUpdate.setInt(1, rent.getArea());
 				stmtUpdate.setInt(2, rent.getBeds());
 				stmtUpdate.setInt(3, rent.getBaths());
 				stmtUpdate.setBoolean(4, rent.isAttached());
 				stmtUpdate.setDouble(5, rent.getPrice());
+				stmtUpdate.setDouble(6, rent.getPrice1MonthOld());
+				stmtUpdate.setDouble(7, rent.getPrice2MonthOld());
+				stmtUpdate.setInt(8, rent.getLastCount());
+				stmtUpdate.setDate(9, new Date(rent.getLastUpdateMonth().getTime()));
 				stmtUpdate.executeUpdate();
 				stmtUpdate.close();
 			}
@@ -479,14 +485,18 @@ public class DBConnection {
 		PreparedStatement stmt = null;
 		try{
 			String tableName = getTableName(rent.getDownPayment());
-			String s = "UPDATE " + tableName + " SET Price = ?"
+			String s = "UPDATE " + tableName + " SET Price = ?, Price_1_Month_Old = ?, Price_2_Month_Old = ?, Last_Count = ?, Last_Month_Update = ?"
 					+ "\nWHERE MLS_ID = ?  AND Beds = ? AND Baths = ? AND Attached = ?;";
 			stmt = conn.prepareStatement(s);
 			stmt.setDouble(1, rent.getPrice());
-			stmt.setInt(2, rent.getArea());
-			stmt.setInt(3, rent.getBeds());
-			stmt.setInt(4, rent.getBaths());
-			stmt.setBoolean(5, rent.isAttached());
+			stmt.setDouble(2, rent.getPrice1MonthOld());
+			stmt.setDouble(3, rent.getPrice2MonthOld());
+			stmt.setInt(4, rent.getLastCount());
+			stmt.setDate(5, new Date(rent.getLastUpdateMonth().getTime()));
+			stmt.setInt(6, rent.getArea());
+			stmt.setInt(7, rent.getBeds());
+			stmt.setInt(8, rent.getBaths());
+			stmt.setBoolean(9, rent.isAttached());
 			stmt.executeUpdate();
 			stmt.close();
 		} finally {
@@ -529,6 +539,7 @@ public class DBConnection {
 			} catch(SQLException e){}
 		}
 	}
+	
 	public synchronized void createBuy(Buy buy) throws ClassNotFoundException, SQLException{
 		PreparedStatement stmtCheck = null;
 		PreparedStatement stmtUpdate = null;
@@ -545,14 +556,18 @@ public class DBConnection {
 			rs = stmtCheck.executeQuery();
 			if(!rs.first()){
 				s =  "INSERT INTO " + tableName
-						+ " (MLS_ID, Beds, Baths, Attached, Price)"
-						+ " VALUES (?,?,?,?,?);";
+						+ " (MLS_ID, Beds, Baths, Attached, Price, Price_1_Month_Old, Price_2_Month_Old, Last_Count, Last_Month_Update)"
+						+ " VALUES (?,?,?,?,?,?,?,?,?);";
 				stmtUpdate = conn.prepareStatement(s);
 				stmtUpdate.setInt(1, buy.getArea());
 				stmtUpdate.setInt(2, buy.getBeds());
 				stmtUpdate.setInt(3, buy.getBaths());
 				stmtUpdate.setBoolean(4, buy.isAttached());
 				stmtUpdate.setDouble(5, buy.getPrice());
+				stmtUpdate.setDouble(6, buy.getPrice1MonthOld());
+				stmtUpdate.setDouble(7, buy.getPrice2MonthOld());
+				stmtUpdate.setInt(8, buy.getLastCount());
+				stmtUpdate.setDate(9, new Date(buy.getLastUpdateMonth().getTime()));
 				stmtUpdate.executeUpdate();
 				stmtUpdate.close();
 			}
@@ -612,7 +627,8 @@ public class DBConnection {
 			rs = stmt.executeQuery();
 			ArrayList<Rent> rents = new ArrayList<Rent>();
 			while(rs.next()){
-				Rent r = PropertyFactory.makeRent(rs.getInt("MLS_ID"), rs.getInt("Beds"), rs.getInt("Baths"), rs.getBoolean("Attached"), rs.getDouble("Price"), this);
+				Rent r = PropertyFactory.makeRent(rs.getInt("MLS_ID"), rs.getInt("Beds"), rs.getInt("Baths"), rs.getBoolean("Attached"), this);
+				r.setDBPrices(new PriceDTO(rs.getDouble("Price"), rs.getDouble("Price_1_Month_Old"), rs.getDouble("Price_1_Month_Old"), rs.getInt("Last_Count"), rs.getDate("Last_Month_Update")));
 				rents.add(r);
 			}
 			rs.close();
@@ -640,7 +656,8 @@ public class DBConnection {
 			rs = stmt.executeQuery();
 			ArrayList<Rent> rents = new ArrayList<Rent>();
 			while(rs.next()){
-				Rent r = PropertyFactory.makeRent(rs.getInt("MLS_ID"), rs.getInt("Beds"), rs.getInt("Baths"), rs.getBoolean("Attached"), rs.getDouble("Price"), this);
+				Rent r = PropertyFactory.makeRent(rs.getInt("MLS_ID"), rs.getInt("Beds"), rs.getInt("Baths"), rs.getBoolean("Attached"), this);
+				r.setDBPrices(new PriceDTO(rs.getDouble("Price"), rs.getDouble("Price_1_Month_Old"), rs.getDouble("Price_1_Month_Old"), rs.getInt("Last_Count"), rs.getDate("Last_Month_Update")));
 				rents.add(r);
 			}
 			rs.close();
@@ -671,7 +688,8 @@ public class DBConnection {
 				stmt = conn.prepareStatement(s);
 				rs = stmt.executeQuery();
 				while(rs.next()){
-					Buy b = PropertyFactory.makeBuy(rs.getInt("MLS_ID"), rs.getInt("Beds"), rs.getInt("Baths"), rs.getBoolean("Attached"), dp, rs.getDouble("Price"), this);
+					Buy b = PropertyFactory.makeBuy(rs.getInt("MLS_ID"), rs.getInt("Beds"), rs.getInt("Baths"), rs.getBoolean("Attached"), dp, this);
+					b.setDBPrices(new PriceDTO(rs.getDouble("Price"), rs.getDouble("Price_1_Month_Old"), rs.getDouble("Price_1_Month_Old"), rs.getInt("Last_Count"), rs.getDate("Last_Month_Update")));
 					buys.add(b);
 				}
 				rs.close();
@@ -698,7 +716,8 @@ public class DBConnection {
 			rs = stmt.executeQuery();
 			ArrayList<Buy> buys = new ArrayList<Buy>();
 			while(rs.next()){
-				Buy b = PropertyFactory.makeBuy(rs.getInt("MLS_ID"), rs.getInt("Beds"), rs.getInt("Baths"), rs.getBoolean("Attached"), dp, rs.getDouble("Price"), this);
+				Buy b = PropertyFactory.makeBuy(rs.getInt("MLS_ID"), rs.getInt("Beds"), rs.getInt("Baths"), rs.getBoolean("Attached"), dp, this);
+				b.setDBPrices(new PriceDTO(rs.getDouble("Price"), rs.getDouble("Price_1_Month_Old"), rs.getDouble("Price_1_Month_Old"), rs.getInt("Last_Count"), rs.getDate("Last_Month_Update")));
 				buys.add(b);
 			}
 			rs.close();
@@ -727,7 +746,8 @@ public class DBConnection {
 			rs = stmt.executeQuery();
 			ArrayList<Buy> buys = new ArrayList<Buy>();
 			while(rs.next()){
-				Buy b = PropertyFactory.makeBuy(rs.getInt("MLS_ID"), rs.getInt("Beds"), rs.getInt("Baths"), rs.getBoolean("Attached"), dp, rs.getDouble("Price"), this);
+				Buy b = PropertyFactory.makeBuy(rs.getInt("MLS_ID"), rs.getInt("Beds"), rs.getInt("Baths"), rs.getBoolean("Attached"), dp, this);
+				b.setDBPrices(new PriceDTO(rs.getDouble("Price"), rs.getDouble("Price_1_Month_Old"), rs.getDouble("Price_1_Month_Old"), rs.getInt("Last_Count"), rs.getDate("Last_Month_Update")));
 				buys.add(b);
 			}
 			rs.close();
@@ -820,7 +840,8 @@ public class DBConnection {
 			rs = stmt.executeQuery();
 			Rent r = null;
 			if(rs.first()){
-				r = PropertyFactory.makeRent(rs.getInt("MLS_ID"), rs.getInt("Beds"), rs.getInt("Baths"), rs.getBoolean("Attached"), rs.getDouble("Price"), this);
+				r = PropertyFactory.makeRent(rs.getInt("MLS_ID"), rs.getInt("Beds"), rs.getInt("Baths"), rs.getBoolean("Attached"), this);
+				r.setDBPrices(new PriceDTO(rs.getDouble("Price"), rs.getDouble("Price_1_Month_Old"), rs.getDouble("Price_1_Month_Old"), rs.getInt("Last_Count"), rs.getDate("Last_Month_Update")));
 			}
 			rs.close();
 			stmt.close();
@@ -844,8 +865,9 @@ public class DBConnection {
 			stmt.setInt(1, area);
 			rs = stmt.executeQuery();
 			ArrayList<Rent> rents = new ArrayList<Rent>();
-			if(rs.first()){
-				Rent r = PropertyFactory.makeRent(rs.getInt("MLS_ID"), rs.getInt("Beds"), rs.getInt("Baths"), rs.getBoolean("Attached"), rs.getDouble("Price"), this);
+			while(rs.next()){
+				Rent r = PropertyFactory.makeRent(rs.getInt("MLS_ID"), rs.getInt("Beds"), rs.getInt("Baths"), rs.getBoolean("Attached"), this);
+				r.setDBPrices(new PriceDTO(rs.getDouble("Price"), rs.getDouble("Price_1_Month_Old"), rs.getDouble("Price_1_Month_Old"), rs.getInt("Last_Count"), rs.getDate("Last_Month_Update")));
 				rents.add(r);
 			}
 			rs.close();
@@ -876,7 +898,8 @@ public class DBConnection {
 			rs = stmt.executeQuery();
 			Buy b = null;
 			if(rs.first()){
-				b = PropertyFactory.makeBuy(rs.getInt("MLS_ID"), rs.getInt("Beds"), rs.getInt("Baths"), rs.getBoolean("Attached"), dp, rs.getDouble("Price"), this);
+				b = PropertyFactory.makeBuy(rs.getInt("MLS_ID"), rs.getInt("Beds"), rs.getInt("Baths"), rs.getBoolean("Attached"), dp, this);
+				b.setDBPrices(new PriceDTO(rs.getDouble("Price"), rs.getDouble("Price_1_Month_Old"), rs.getDouble("Price_1_Month_Old"), rs.getInt("Last_Count"), rs.getDate("Last_Month_Update")));
 			}
 			rs.close();
 			stmt.close();
@@ -904,8 +927,9 @@ public class DBConnection {
 				stmt = conn.prepareStatement(s);
 				stmt.setInt(1, area);
 				rs = stmt.executeQuery();
-				if(rs.first()){
-					Buy b = PropertyFactory.makeBuy(rs.getInt("MLS_ID"), rs.getInt("Beds"), rs.getInt("Baths"), rs.getBoolean("Attached"), dp, rs.getDouble("Price"), this);
+				while(rs.next()){
+					Buy b = PropertyFactory.makeBuy(rs.getInt("MLS_ID"), rs.getInt("Beds"), rs.getInt("Baths"), rs.getBoolean("Attached"), dp, this);
+					b.setDBPrices(new PriceDTO(rs.getDouble("Price"), rs.getDouble("Price_1_Month_Old"), rs.getDouble("Price_1_Month_Old"), rs.getInt("Last_Count"), rs.getDate("Last_Month_Update")));
 					buys.add(b);
 				}
 				rs.close();
@@ -983,6 +1007,39 @@ public class DBConnection {
 		}
 	}
 	
+	public PriceDTO getAreaPrices(int area, int beds, int baths, boolean isAtt, double dp) throws SQLException{
+		PreparedStatement stmt = null;
+		ResultSet rs = null;
+		String tableName = getTableName(dp);
+		try{
+			String s = "SELECT Price, Price_1_Month_Old, Price_1_Month_Old, Last_Count, Last_Month_Update FROM " + tableName
+					+ "\nWHERE MLS_ID = ? AND Beds = ?  AND Beds = ? AND Attached = ?;";
+			stmt = conn.prepareStatement(s);
+			stmt.setInt(1, area);
+			stmt.setInt(2, beds);
+			stmt.setInt(3, baths);
+			stmt.setBoolean(4, isAtt);
+			rs = stmt.executeQuery();
+			if(!rs.first()){
+				rs.close();
+				stmt.close();
+				return new PriceDTO(0,0,0,0);
+			}
+			else{
+				PriceDTO p = new PriceDTO(rs.getDouble("Price"), rs.getDouble("Price_1_Month_Old"), rs.getDouble("Price_1_Month_Old"), rs.getInt("Last_Count"), rs.getDate("Last_Month_Update"));
+				rs.close();
+				stmt.close();
+				return p;
+			}		
+		} finally {
+			try{
+				if(rs != null)
+					rs.close();
+				if(stmt != null)
+					stmt.close();	
+			} catch(SQLException e) {}
+		}
+	}
 	public double[] getAllPrices(int area, int beds, boolean isAtt, double dp) throws ClassNotFoundException, SQLException{
 		PreparedStatement stmt = null;
 		ResultSet rs = null;

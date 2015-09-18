@@ -20,6 +20,7 @@ import org.json.JSONObject;
 
 import constants.KeeperFields;
 import db.DBConnection;
+import exception.SpreadSheetSizeException;
 
 public class ConvertExcel {
 	private final ArrayList<String> keeperFields = new ArrayList<String>();
@@ -30,7 +31,7 @@ public class ConvertExcel {
 		}
 	}
 	
-	public JSONObject CSVtoJSON(/*String filename*/ InputStream is, DBConnection conn){
+	public JSONObject CSVtoJSON(/*String filename*/ InputStream is, DBConnection conn) throws SpreadSheetSizeException{
 		JSONObject results = new JSONObject();
 		HashMap<Integer,String> colNames = new HashMap<Integer,String>();
 		try{
@@ -42,6 +43,9 @@ public class ConvertExcel {
             //Get first/desired sheet from the workbook
             XSSFSheet sheet = workbook.getSheetAt(0);
             //Iterate through each rows one by one
+            if(sheet.getLastRowNum() > 1001){
+            	throw new SpreadSheetSizeException("SpreadSheet has too many rows");
+            }
             Iterator<Row> rowIterator = sheet.iterator();
             boolean first = true;
             ArrayList<JSONObject> rows = new ArrayList<JSONObject>();
@@ -50,6 +54,7 @@ public class ConvertExcel {
                 //For each row, iterate through all the columns
                 if(first){
 	                Iterator<Cell> cellIterator = row.cellIterator();
+	                int count = 0;
 	                while (cellIterator.hasNext()){
 	                    Cell cell = cellIterator.next();
 	                    int type = cell.getCellType();
@@ -62,6 +67,10 @@ public class ConvertExcel {
 	                    else if(type == Cell.CELL_TYPE_BLANK){
 	                    	first = false;
 	                    	break;
+	                    }
+	                    count++;
+	                    if(count > 10){
+	                    	throw new SpreadSheetSizeException("SpreadSheet has too many columns");
 	                    }
 	                }
 	                first = false;
@@ -99,11 +108,11 @@ public class ConvertExcel {
         return results;
     }
 	
-	public JSONObject testMethod(String filename, DBConnection conn) throws FileNotFoundException, ClassNotFoundException, SQLException{
+	public JSONObject testMethod(String filename, DBConnection conn) throws FileNotFoundException, ClassNotFoundException, SQLException, SpreadSheetSizeException{
 		FileInputStream file = new FileInputStream(new File(filename));
 		return CSVtoJSON(file, conn);
 	}
-	public static void main(String[] args){
+	public static void main(String[] args) throws SpreadSheetSizeException{
 		ConvertExcel ce = new ConvertExcel();
 		String path = "C:\\Users\\L096026\\Documents\\Homeology\\Homeology\\";
 		String file = "buyAtt2btest";

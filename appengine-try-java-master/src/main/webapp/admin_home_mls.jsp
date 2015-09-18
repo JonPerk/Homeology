@@ -52,15 +52,16 @@ Select a file to upload: <br />
 			<th> Zip Codes </th>
 		</tr>
 	</thead>
-	<c:forEach items="${areas}" var="area">
 	<tbody>	
+	<c:forEach items="${areas}" var="area">
 		<tr>      
 		        <td><a href="view_area?areaId=${area.area}">${area.area}</a></td>
 		        <td><c:forEach items="${area.cities}" var="city">${city} </c:forEach></td>
 		        <td><c:forEach items="${area.zips}" var="zip">${zip} </c:forEach></td>
 	    	</tr>
+	</c:forEach>
 	</tbody>
-    </c:forEach>
+    
 </table>
 </div>
 

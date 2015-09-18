@@ -2,6 +2,7 @@ package mls;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.logging.Level;
@@ -190,7 +191,6 @@ public class ImportMLS {
 				}
 			}
 			if(city != null){
-				log.log(Level.INFO, "Found City " + city);
 				AreaFactory.makeArea(areaNum, city, zips, conn);
 				if(county != null)
 					conn.createCounty(city, county);
@@ -199,10 +199,10 @@ public class ImportMLS {
 				AreaFactory.makeArea(areaNum, zips, conn);
 			}
 			if(isRent){
-				addRentArea(areaNum, beds, isAtt, totalPrices, conn);
+				addRentArea(areaNum, beds, isAtt, totalPrices, counts, conn);
 			}
 			else{
-				addBuyArea(areaNum, beds, isAtt, totalPrices, conn);
+				addBuyArea(areaNum, beds, isAtt, totalPrices, counts, conn);
 				//tbs.add(new TempBuy(areaNum, beds, isAtt, totalPrices));
 				//System.out.println(tbs.get(tbs.size()-1).toString());
 			}
@@ -214,17 +214,17 @@ public class ImportMLS {
 		}*/
 	}
 	
-	private void addRentArea(int areaNum, int beds, boolean isAtt, double[] prices, DBConnection conn) throws JSONException, IllegalArgumentException, ClassNotFoundException, SQLException{
+	private void addRentArea(int areaNum, int beds, boolean isAtt, double[] prices, int[] counts, DBConnection conn) throws JSONException, IllegalArgumentException, ClassNotFoundException, SQLException{
 		for(int i = 0; i < BedsAndBaths.MAX_BATHS.getInt(); i++) {
-			PropertyFactory.makeRent(areaNum, beds, i+1, isAtt, prices[i], conn);
+			PropertyFactory.makeRent(areaNum, beds, i+1, isAtt, prices[i], counts[i], conn);
 		}
 	}
 	
-	private void addBuyArea(int areaNum, int beds, boolean isAtt, double[] prices, DBConnection conn) throws JSONException, IllegalArgumentException, ClassNotFoundException, SQLException{
+	private void addBuyArea(int areaNum, int beds, boolean isAtt, double[] prices, int[] counts, DBConnection conn) throws JSONException, IllegalArgumentException, ClassNotFoundException, SQLException{
 		for(int i = 0; i < BedsAndBaths.MAX_BATHS.getInt(); i++) {
 			for(DownPayTypes dpt : DownPayTypes.values()){
 				double dp = dpt.getDouble();
-				PropertyFactory.makeBuy(areaNum, beds, i+1, isAtt, dp, getMortgagePayment(prices[i], dp), conn);
+				PropertyFactory.makeBuy(areaNum, beds, i+1, isAtt, dp, getMortgagePayment(prices[i], dp), counts[i], conn);
 			}
 		}	
 	}

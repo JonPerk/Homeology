@@ -23,7 +23,7 @@ public class AreaFactory {
 		}
 	}*/
 	
-	public static Area makeArea(int area, DBConnection conn) throws IllegalArgumentException, ClassNotFoundException, SQLException{
+	public synchronized static Area makeArea(int area, DBConnection conn) throws IllegalArgumentException, ClassNotFoundException, SQLException{
 		if(area < min || area > max)
 			throw new IllegalArgumentException("Area number out of range");
 		if(areas.contains(area))
@@ -35,7 +35,7 @@ public class AreaFactory {
 		}
 	}
 	
-	public static Area makeArea(int area, String city, DBConnection conn) throws IllegalArgumentException, ClassNotFoundException, SQLException{
+	public synchronized static Area makeArea(int area, String city, DBConnection conn) throws IllegalArgumentException, ClassNotFoundException, SQLException{
 		Area a = makeArea(area, conn);
 		if(!city.trim().matches("[A-Za-z .]+"))
 			throw new IllegalArgumentException("City name invalid");
@@ -45,19 +45,19 @@ public class AreaFactory {
 		return a;
 	}
 	
-	public static Area makeArea(int area, String city, HashSet<Integer> zips, DBConnection conn) throws IllegalArgumentException, ClassNotFoundException, SQLException{
+	public synchronized static Area makeArea(int area, String city, HashSet<Integer> zips, DBConnection conn) throws IllegalArgumentException, ClassNotFoundException, SQLException{
 		Area a = makeArea(area, city, conn);
 		a.addZips(zips, conn);
 		return a;
 	}
 	
-	public static Area makeArea(int area, HashSet<Integer> zips, DBConnection conn) throws IllegalArgumentException, ClassNotFoundException, SQLException{
+	public synchronized static Area makeArea(int area, HashSet<Integer> zips, DBConnection conn) throws IllegalArgumentException, ClassNotFoundException, SQLException{
 		Area a = makeArea(area, conn);
 		a.addZips(zips, conn);
 		return a;
 	}
 	
-	public static HashMap<Integer,Area> getAllAreas(DBConnection conn) throws ClassNotFoundException, SQLException{
+	public synchronized static HashMap<Integer,Area> getAllAreas(DBConnection conn) throws ClassNotFoundException, SQLException{
 		return conn.getAllAreas();
 	}
 }

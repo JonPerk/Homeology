@@ -16,7 +16,7 @@ public class Area {
 		this.area = area;
 	}
 	
-	void addZips(HashSet<Integer> z, DBConnection conn) throws ClassNotFoundException, SQLException{
+	synchronized void addZips(HashSet<Integer> z, DBConnection conn) throws ClassNotFoundException, SQLException{
 		for(int zip : z){
 			zips.add(zip);
 		}
@@ -27,7 +27,7 @@ public class Area {
 		return new HashSet<Integer>(zips);
 	}
 	
-	void addCity(String c, DBConnection conn) throws ClassNotFoundException, SQLException{
+	synchronized void addCity(String c, DBConnection conn) throws ClassNotFoundException, SQLException{
 		cities.add(c);
 		conn.updateAreaCity(this);
 	}
