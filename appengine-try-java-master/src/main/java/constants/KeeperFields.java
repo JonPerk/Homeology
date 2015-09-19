@@ -3,8 +3,10 @@ package constants;
 public enum KeeperFields {
 	AREA_FIELD("Area"),
 	CITY_FIELD("City"),
+	COUNTY_FIELD("County"),
 	BUY_PRICE_FIELD("Sold Price"),
 	RENT_PRICE_FIELD("RP/RNP"),
+	RENT_PRICE_FIELD_2("Rent Search Price"),
 	BUY_ZIP_FIELD("Zip Code"),
 	RENT_ZIP_FIELD("Zip"),
 	FULL_BATH_FIELD("# Full Baths"),

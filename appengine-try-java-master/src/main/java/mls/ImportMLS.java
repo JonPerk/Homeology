@@ -182,8 +182,10 @@ public class ImportMLS {
 				baths--;
 				counts[baths]++;
 				totalPrices[baths] += j.getDouble(price);
-				int z = j.getInt(zip);
-				zips.add(z);			
+				if(j.has(zip)){
+					int z = j.getInt(zip);
+					zips.add(z);
+				}
 			}
 			for(int i = 0; i < counts.length; i++){
 				if(counts[i] != 0){

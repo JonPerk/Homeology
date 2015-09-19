@@ -11,8 +11,8 @@ import javax.servlet.http.*;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import user.ImportUsers;
 import db.DBConnection;
-import form.ImportUsers;
 
 public class SubmitFormServlet extends HttpServlet {
 	private static final Logger log = Logger.getLogger(SubmitFormServlet.class.getName());

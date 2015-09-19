@@ -12,6 +12,7 @@ import java.util.HashSet;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import user.User;
 import mls.area.Area;
 import mls.area.AreaFactory;
 import mls.property.Buy;
@@ -27,7 +28,6 @@ import constants.DownPayTypes;
 import constants.FormDBFields;
 import constants.UserObjectFields;
 import constants.Zones;
-import form.User;
 
 public class DBConnection {
 	private String url;

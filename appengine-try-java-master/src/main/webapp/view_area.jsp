@@ -38,6 +38,7 @@
 			<th> Baths </th>
 			<th> Avg. Price </th>
 		</tr>
+		</thead>
 	<tbody>
 	<c:choose>
 	<c:when test="${empty rents}"></c:when>
