@@ -7,7 +7,19 @@ body {
 	background-image: url("../img/ChicagoRiver.jpg");
 	background-repeat: no-repeat;
 	background-position: 50% 0%;
-	background-size: 110% 115%;
+	/*background-size: 110% 115%;*/
+	background-attachment: fixed;
+	position: scroll;
+	z-index: -1;
+	max-width: 100%;
+	width: 100%;
+	margin: 0 auto;
+	overflow: visible;
+	height: 100%;
+	-webkit-background-size: cover;
+	-moz-background-size: cover;
+	-o-background-size: cover;
+	background-size: cover;
 }
 
 .button {
