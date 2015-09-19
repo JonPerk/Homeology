@@ -116,8 +116,14 @@ header h1 {
 	opacity: 1;
     background-color: #4a91e8;
 }
+
+.table th {
+	background-color: #2071d9;
+}
+
 .table {
-	background-color: #dddfe9;
+	opacity: .7;
+	border-radius: 5px;
 }
 
 .table th, .table tr {
