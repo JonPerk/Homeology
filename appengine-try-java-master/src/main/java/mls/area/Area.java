@@ -23,6 +23,12 @@ public class Area {
 		conn.updateAreaZips(this);
 	}
 	
+	synchronized void addZips(HashSet<Integer> z) throws ClassNotFoundException, SQLException{
+		for(int zip : z){
+			zips.add(zip);
+		}
+	}
+	
 	public HashSet<Integer> getZips(){
 		return new HashSet<Integer>(zips);
 	}
@@ -30,6 +36,10 @@ public class Area {
 	synchronized void addCity(String c, DBConnection conn) throws ClassNotFoundException, SQLException{
 		cities.add(c);
 		conn.updateAreaCity(this);
+	}
+	
+	synchronized void addCity(String c) throws ClassNotFoundException, SQLException{
+		cities.add(c);
 	}
 	
 	public HashSet<String> getCities(){

@@ -7,7 +7,6 @@
     <servlet>
         <servlet-name>submitForm</servlet-name>
         <servlet-class>myapp.SubmitFormServlet</servlet-class>
-		<load-on-startup>1</load-on-startup>
     </servlet>
     <servlet-mapping>
         <servlet-name>submitForm</servlet-name>
@@ -16,7 +15,6 @@
 	<servlet>
         <servlet-name>viewArea</servlet-name>
         <servlet-class>myapp.ViewAreaServlet</servlet-class>
-		<load-on-startup>2</load-on-startup>
     </servlet>
     <servlet-mapping>
         <servlet-name>viewArea</servlet-name>
@@ -25,16 +23,22 @@
 	<servlet>
         <servlet-name>MLS</servlet-name>
         <servlet-class>myapp.MLSServlet</servlet-class>
-		<load-on-startup>3</load-on-startup>
     </servlet>
     <servlet-mapping>
         <servlet-name>MLS</servlet-name>
         <url-pattern>/view_mls</url-pattern>
     </servlet-mapping>
 	<servlet>
+        <servlet-name>ViewAllCustomers</servlet-name>
+        <servlet-class>myapp.ViewAllCustomersServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>ViewAllCustomers</servlet-name>
+        <url-pattern>/view_customers</url-pattern>
+    </servlet-mapping>
+	<servlet>
         <servlet-name>Enqueue</servlet-name>
         <servlet-class>myapp.Enqueue</servlet-class>
-		<load-on-startup>4</load-on-startup>
     </servlet>
     <servlet-mapping>
         <servlet-name>Enqueue</servlet-name>
@@ -43,7 +47,6 @@
 	<servlet>
         <servlet-name>Worker</servlet-name>
         <servlet-class>myapp.Worker</servlet-class>
-		<load-on-startup>5</load-on-startup>
     </servlet>
     <servlet-mapping>
         <servlet-name>Worker</servlet-name>

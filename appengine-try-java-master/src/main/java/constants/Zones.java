@@ -34,4 +34,8 @@ public enum Zones {
 	public int getSpeed(){
 		return speed;
 	}
+	
+	public static void main(String[] args){
+		System.out.println(Zones.valueOf("Lake").getZone());
+	}
 }

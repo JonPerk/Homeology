@@ -14,7 +14,7 @@ import mls.property.PropertyFactory;
 import mls.property.Rent;
 
 public class ViewAreaServlet extends HttpServlet {
-	private static final Logger log = Logger.getLogger(MLSServlet.class.getName());
+	private static final Logger log = Logger.getLogger(ViewAreaServlet.class.getName());
 	
     @Override
     public void doGet(HttpServletRequest req, HttpServletResponse resp)

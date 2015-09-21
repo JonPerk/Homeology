@@ -5,6 +5,7 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.nio.ByteBuffer;
 import java.sql.SQLException;
+import java.sql.Types;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -59,7 +60,7 @@ public class User {
 	private int restaurants;
 	private int bars;
 	private int amenities;
-	private int safety;
+	private String safety;
 	private String additionalInfo;
 	private String previousSearch; //possible enum
 	private String aptStyle; //possible enum
@@ -116,14 +117,10 @@ public class User {
 		conn.createUser(this);
 	}
 	
-	public User(HashMap<String, Object> args) throws SQLException{
-		UUID uuid = UUID.randomUUID();
-		ByteBuffer bb = ByteBuffer.wrap(new byte[16]);
-	    bb.putLong(uuid.getMostSignificantBits());
-	    bb.putLong(uuid.getLeastSignificantBits());
-	    id = bb.array();
-		created = new Date();
-		modified = created;
+	public User(HashMap<String, Object> args, byte[] cust_id, Date date_created, Date date_modified) throws SQLException{
+	    id = cust_id;
+		created = date_created;
+		modified = date_modified;
 		for(UserObjectFields uof : UserObjectFields.values()){
 			String s = uof.toObjectField();
 			if(args.containsKey(s)){
@@ -134,15 +131,15 @@ public class User {
 						m = User.class.getMethod("set" + s, cl);
 						m.invoke(this, args.get(s));
 					} catch (NoSuchMethodException e) {
-						log.log(Level.SEVERE, e.getLocalizedMessage(), e);
+						log.log(Level.SEVERE, e.getLocalizedMessage() + " " + s + " " + uof.toJavaClass().getName(), e);
 					} catch (SecurityException e) {
-						log.log(Level.SEVERE, e.getLocalizedMessage(), e);
+						log.log(Level.SEVERE, e.getLocalizedMessage() + " " + s + " " + uof.toJavaClass().getName(), e);
 					} catch (IllegalAccessException e) {
-						log.log(Level.SEVERE, e.getLocalizedMessage(), e);
+						log.log(Level.SEVERE, e.getLocalizedMessage() + " " + s + " " + uof.toJavaClass().getName(), e);
 					} catch (IllegalArgumentException e) {
-						log.log(Level.SEVERE, e.getLocalizedMessage(), e);
+						log.log(Level.SEVERE, e.getLocalizedMessage() + " " + s + " " + uof.toJavaClass().getName(), e);
 					} catch (InvocationTargetException e) {
-						log.log(Level.SEVERE, e.getLocalizedMessage(), e);
+						log.log(Level.SEVERE, e.getLocalizedMessage() + " " + s + " " + uof.toJavaClass().getName(), e);
 					}
 				
 			}
@@ -585,15 +582,15 @@ public class User {
 		this.amenities = amenities;
 	}
 
-	public int getSafety() {
+	public String getSafety() {
 		return safety;
 	}
 
-	public void setSafety(int safety) {
+	public void setSafety(String safety) {
 		this.safety = safety;
 	}
 	//TODO
-	public void setSafety(int safety, DBConnection conn) {
+	public void setSafety(String safety, DBConnection conn) {
 		this.safety = safety;
 	}
 
@@ -730,12 +727,55 @@ public class User {
 		this.matchedAreas = matchedAreas;
 	}
 	
+	public String toString(){
+		StringBuilder s = new StringBuilder();
+		for(UserObjectFields uof : UserObjectFields.values()){
+			Method m;
+			try {
+				m = User.class.getMethod("get" + uof.toObjectField());
+				Object o = m.invoke(this);
+				if(uof.toJavaClass() != ArrayList.class){
+					s.append(uof.toPrintString());
+					s.append(" ");
+					if(o != null)
+						s.append(o.toString());
+					else
+						s.append("null");
+					s.append("\n");
+				}
+				else{
+					s.append(uof.toPrintString());
+					s.append(" ");
+					if(o != null){
+						for(int i : new ArrayList<Integer>((ArrayList<Integer>) o)){
+							s.append(i);
+							s.append(" ");
+						}
+					}
+					else
+						s.append("null");
+					s.append("\n");
+				}
+			} catch (NoSuchMethodException e) {
+				log.log(Level.SEVERE, e.getLocalizedMessage(), e);
+			} catch (SecurityException e) {
+				log.log(Level.SEVERE, e.getLocalizedMessage(), e);
+			} catch (IllegalAccessException e) {
+				log.log(Level.SEVERE, e.getLocalizedMessage(), e);
+			} catch (IllegalArgumentException e) {
+				log.log(Level.SEVERE, e.getLocalizedMessage(), e);
+			} catch (InvocationTargetException e) {
+				log.log(Level.SEVERE, e.getLocalizedMessage(), e);
+			}
+		}
+		return s.toString();
+	}
+	
 	public static void main(String[] args){
 		ImportUsers iu = new ImportUsers();
 		DBConnection db = null;
 		try {
 			db = new DBConnection();
-			ImportMLS im = new ImportMLS();
 			String results = "email+Address=efe@gg.ggg"
 					+ "&Select+Your+Preferred+Regions=%5BLjava.lang.Object;@571fb1d"
 					+ "&Mortgage+Down+Payment=20%25"
@@ -748,7 +788,7 @@ public class User {
 					+ "&Desired+Move+Date=01-01"
 					+ "&Do+you+have+a+little+more+time+to+to+continue+with+Lifestyle+Questions?=Complete+later+by+email+or+phone"
 					+ "&Reason+for+Your+Move=Relocating+from+outside+the+area"
-					+ "&Provide+Work+Zip+Code=60614"
+					+ "&Provide+Work+Zip+Code=60615"
 					+ "&If+applicable,+provide+other+resident's+work+Zip+Code&Maximum=5678901"
 					+ "&Price+Range+for+Purchasing+a+Home.+Minimum=4567890"
 					+ "&City+or+Neighborhood+You+Live+Now"
@@ -756,8 +796,10 @@ public class User {
 					+ "&Monthly+Payment+you+are+Comfortable+with+for+your+Total+Housing+Expense=1500"
 					+ "&Please+provide+your+phone+number"
 					+ "&Are+You+Buying+or+Renting?=Buying"
-					+ "&MAXIMUM+Time+-+You+and+Other+Household+Members+will+Allow+for+Commuting+to+Work=0.5 hr.";
+					+ "&MAXIMUM+Time+-+You+and+Other+Household+Members+will+Allow+for+Commuting+to+Work=2.0+hrs.";
 			iu.addNewUser(results, db);
+			ArrayList<User> users = db.getAllUsers();
+			System.out.println(users.get(users.size()-1));
 		} catch (ClassNotFoundException e) {
 			if(db != null)
 				db.close();

@@ -7,6 +7,7 @@ import java.nio.ByteBuffer;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.logging.Level;
@@ -169,115 +170,45 @@ public class DBConnection {
 	
 	public User getUser(byte[] id) throws SQLException{
 		PreparedStatement stmt = null;
-		ResultSet rs = null;
-		try{
-			String s = "SELECT * FROM Cust_Data, Matched_Areas\nWHERE Cust_Data.Id = ? AND Matched_Areas.Cust_Id = ?;";
-			stmt = conn.prepareStatement(s);
-			stmt.setBytes(1, id);
-			stmt.setBytes(2, id);
-			rs = stmt.executeQuery();
-			User u = null;
-			if(rs.first()){
-				HashMap<String,Object> results = new HashMap<String,Object>();
-				ArrayList<Integer> matchedAreas = new ArrayList<Integer>();
-				while(rs.next()){
-					if(rs.first()){
-						for(UserObjectFields uof : UserObjectFields.values()){
-							if(!uof.equals(UserObjectFields.MATCHED_AREAS))
-								results.put(uof.toObjectField(), rs.getObject(uof.toDBField()));
-						}
-					}
-					rs.getInt(rs.getInt("MLS_ID"));
-				}
-				results.put(UserObjectFields.MATCHED_AREAS.toFormField(), matchedAreas);
-				u = new User(results);
-			}
-			rs.close();
-			stmt.close();
-			return u;		
-		} finally {
-			try{
-				if(rs != null)
-					rs.close();
-				if(stmt != null)
-					stmt.close();
-			} catch(SQLException e) {}
-		}
-	}
-	
-	public User getUser(String email) throws SQLException{
-		PreparedStatement stmt = null;
-		ResultSet rs = null;
-		try{
-			String s = "SELECT * FROM Cust_Data, Matched_Areas\nWHERE Cust_Data.Email = ? AND Matched_Areas.Cust_Id = Cust_Data.Id;";
-			stmt = conn.prepareStatement(s);
-			stmt.setString(1, email);
-			rs = stmt.executeQuery();
-			User u = null;
-			if(rs.first()){
-				HashMap<String,Object> results = new HashMap<String,Object>();
-				ArrayList<Integer> matchedAreas = new ArrayList<Integer>();
-				while(rs.next()){
-					if(rs.first()){
-						for(UserObjectFields uof : UserObjectFields.values()){
-							if(!uof.equals(UserObjectFields.MATCHED_AREAS))
-								results.put(uof.toObjectField(), rs.getObject(uof.toDBField()));
-						}
-					}
-					rs.getInt(rs.getInt("MLS_ID"));
-				}
-				results.put(UserObjectFields.MATCHED_AREAS.toFormField(), matchedAreas);
-				u = new User(results);
-			}
-			rs.close();
-			stmt.close();
-			return u;		
-		} finally {
-			try{
-				if(rs != null)
-					rs.close();
-				if(stmt != null)
-					stmt.close();
-			} catch(SQLException e) {}
-		}
-	}
-	
-	public synchronized ArrayList<User> getUsers() throws SQLException{
-		PreparedStatement stmt = null;
 		PreparedStatement stmt2 = null;
 		ResultSet rs = null;
 		ResultSet rs2 = null;
 		try{
-			String s = "SELECT * FROM Cust_Data;";
+			String s = "SELECT * FROM Cust_Data\nWHERE Id = ?;";
 			stmt = conn.prepareStatement(s);
+			stmt.setBytes(1, id);
 			rs = stmt.executeQuery();
-			String s2 = "SELECT * FROM Matched_Areas\nWHERE Cust_Id = ?;";
-			stmt2 = conn.prepareStatement(s2);
-			ArrayList<User> users = new ArrayList<User>();
-			while(rs.next()){
+			User u = null;
+			if(rs.first()){
 				HashMap<String,Object> results = new HashMap<String,Object>();
 				ArrayList<Integer> matchedAreas = new ArrayList<Integer>();
+				java.util.Date created = null;
+				java.util.Date modified = null;
 				for(UserObjectFields uof : UserObjectFields.values()){
-					if(!uof.equals(UserObjectFields.MATCHED_AREAS))
+					if(uof.equals(UserObjectFields.CREATED))
+						created = rs.getDate(uof.toDBField());
+					else if(uof.equals(UserObjectFields.MODIFIED))
+						modified = rs.getDate(uof.toDBField());
+					else if(!uof.equals(UserObjectFields.MATCHED_AREAS)
+							&& !uof.equals(UserObjectFields.ID))
 						results.put(uof.toObjectField(), rs.getObject(uof.toDBField()));
 				}
-				stmt2.setBytes(1, rs.getBytes(UserObjectFields.ID.toDBField()));
+				String s2 = "SELECT * FROM Matched_Areas\nWHERE Cust_Id = ?;";
+				stmt2 = conn.prepareStatement(s2);
+				stmt2.setBytes(1, id);
 				rs2 = stmt2.executeQuery();
 				while(rs2.next()){
-					matchedAreas.add(rs.getInt("MLS_ID"));
+					//log.log(Level.INFO, rs2.getInt("MLS_ID")+"");
+					matchedAreas.add(rs2.getInt("MLS_ID"));
 				}
-				results.put(UserObjectFields.MATCHED_AREAS.toFormField(), matchedAreas);
-				users.add(new User(results));
-			}
-			if(rs != null)
-				rs.close();
-			if(rs2 != null)
+				results.put(UserObjectFields.MATCHED_AREAS.toObjectField(), matchedAreas);
+				u = new User(results, id, created, modified);
 				rs2.close();
-			if(stmt != null)
-				stmt.close();
-			if(stmt2 != null)
 				stmt2.close();
-			return users;		
+			}
+			rs.close();
+			stmt.close();
+			return u;		
 		} finally {
 			try{
 				if(rs != null)
@@ -288,6 +219,86 @@ public class DBConnection {
 					stmt.close();
 				if(stmt2 != null)
 					stmt2.close();
+			} catch(SQLException e) {}
+		}
+	}
+	
+	public User getUser(String email) throws SQLException{
+		PreparedStatement stmt = null;
+		PreparedStatement stmt2 = null;
+		ResultSet rs = null;
+		ResultSet rs2 = null;
+		try{
+			String s = "SELECT * FROM Cust_Data\nWHERE Email = ?;";
+			stmt = conn.prepareStatement(s);
+			stmt.setString(1, email);
+			rs = stmt.executeQuery();
+			User u = null;
+			if(rs.first()){
+				byte[] id = rs.getBytes("Id");
+				String s2 = "SELECT * FROM Matched_Areas\nWHERE Cust_Id = ?;";
+				stmt2 = conn.prepareStatement(s2);
+				stmt2.setBytes(1, id);
+				rs2 = stmt2.executeQuery();
+				java.util.Date created = null;
+				java.util.Date modified = null;
+				HashMap<String,Object> results = new HashMap<String,Object>();
+				ArrayList<Integer> matchedAreas = new ArrayList<Integer>();
+				for(UserObjectFields uof : UserObjectFields.values()){
+					if(uof.equals(UserObjectFields.CREATED))
+						created = rs.getDate(uof.toDBField());
+					else if(uof.equals(UserObjectFields.MODIFIED))
+						modified = rs.getDate(uof.toDBField());
+					else if(!uof.equals(UserObjectFields.MATCHED_AREAS)
+							&& !uof.equals(UserObjectFields.ID))
+						results.put(uof.toObjectField(), rs.getObject(uof.toDBField()));
+				}
+				while(rs2.next())
+					matchedAreas.add(rs2.getInt("MLS_ID"));
+				results.put(UserObjectFields.MATCHED_AREAS.toFormField(), matchedAreas);
+				u = new User(results, id, created, modified);
+				rs2.close();
+				stmt2.close();
+			}
+			rs.close();
+			stmt.close();
+			return u;		
+		} finally {
+			try{
+				if(rs != null)
+					rs.close();
+				if(rs2 != null)
+					rs2.close();
+				if(stmt != null)
+					stmt.close();
+				if(stmt2 != null)
+					stmt2.close();
+			} catch(SQLException e) {}
+		}
+	}
+	
+	public synchronized ArrayList<User> getAllUsers() throws SQLException{
+		PreparedStatement stmt = null;
+		ResultSet rs = null;
+		try{
+			String s = "SELECT Id FROM Cust_Data;";
+			stmt = conn.prepareStatement(s);
+			rs = stmt.executeQuery();
+			ArrayList<User> users = new ArrayList<User>();
+			while(rs.next()){
+				users.add(getUser(rs.getBytes("Id")));
+			}
+			if(rs != null)
+				rs.close();
+			if(stmt != null)
+				stmt.close();
+			return users;		
+		} finally {
+			try{
+				if(rs != null)
+					rs.close();
+				if(stmt != null)
+					stmt.close();
 			} catch(SQLException e) {}
 		}
 	}
@@ -463,7 +474,7 @@ public class DBConnection {
 				stmtUpdate.setDouble(6, rent.getPrice1MonthOld());
 				stmtUpdate.setDouble(7, rent.getPrice2MonthOld());
 				stmtUpdate.setInt(8, rent.getLastCount());
-				stmtUpdate.setDate(9, new Date(rent.getLastUpdateMonth().getTime()));
+				stmtUpdate.setDate(9, new java.sql.Date(rent.getLastUpdateMonth().getTime()));
 				stmtUpdate.executeUpdate();
 				stmtUpdate.close();
 			}
@@ -492,7 +503,7 @@ public class DBConnection {
 			stmt.setDouble(2, rent.getPrice1MonthOld());
 			stmt.setDouble(3, rent.getPrice2MonthOld());
 			stmt.setInt(4, rent.getLastCount());
-			stmt.setDate(5, new Date(rent.getLastUpdateMonth().getTime()));
+			stmt.setDate(5, new java.sql.Date(rent.getLastUpdateMonth().getTime()));
 			stmt.setInt(6, rent.getArea());
 			stmt.setInt(7, rent.getBeds());
 			stmt.setInt(8, rent.getBaths());
@@ -567,7 +578,7 @@ public class DBConnection {
 				stmtUpdate.setDouble(6, buy.getPrice1MonthOld());
 				stmtUpdate.setDouble(7, buy.getPrice2MonthOld());
 				stmtUpdate.setInt(8, buy.getLastCount());
-				stmtUpdate.setDate(9, new Date(buy.getLastUpdateMonth().getTime()));
+				stmtUpdate.setDate(9, new java.sql.Date(buy.getLastUpdateMonth().getTime()));
 				stmtUpdate.executeUpdate();
 				stmtUpdate.close();
 			}
@@ -804,13 +815,11 @@ public class DBConnection {
 			stmt.setInt(2, area);
 			HashMap<Integer,Area> areas = new HashMap<Integer,Area>();
 			rs = stmt.executeQuery();
-			if(rs.isClosed()){
-				throw new SQLException("what the fuck");
-			}
 			while(rs.next()){
 				HashSet<Integer> zips = new HashSet<Integer>();
 				zips.add(rs.getInt("Zip_Code.zipcode"));
-				Area a = AreaFactory.makeArea(rs.getInt("Cities.MLS_ID"), rs.getString("Cities.City"), zips, this);
+				Area a = AreaFactory.makeArea(rs.getInt("Cities.MLS_ID"), rs.getString("Cities.City"), zips);
+				//log.log(Level.INFO, rs.getInt("Cities.MLS_ID") + " " + rs.getString("Cities.City") + " " + rs.getInt("Zip_Code.zipcode"));
 				areas.put(a.getArea(), a);
 			}
 			rs.close();
@@ -961,6 +970,7 @@ public class DBConnection {
 			}
 			if(county != null)
 				zone = Zones.valueOf(county.replace(" ", "")).getZone();
+			//log.log(Level.INFO, county + " " + zone + " " + zip);
 			rs.close();
 			stmt.close();
 			return zone;

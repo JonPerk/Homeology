@@ -26,13 +26,18 @@ public class AreaFactory {
 	public synchronized static Area makeArea(int area, DBConnection conn) throws IllegalArgumentException, ClassNotFoundException, SQLException{
 		if(area < min || area > max)
 			throw new IllegalArgumentException("Area number out of range");
-		if(areas.contains(area))
-			return conn.getArea(areas.get(area));
-		else{
-			Area a = new Area(area);
+		Area a = conn.getArea(area);
+		if(a == null){
+			a = new Area(area);
 			conn.createArea(a);
-			return a;
 		}
+		return a;
+	}
+	
+	public synchronized static Area makeArea(int area) throws IllegalArgumentException, ClassNotFoundException, SQLException{
+		if(area < min || area > max)
+			throw new IllegalArgumentException("Area number out of range");
+		return new Area(area);
 	}
 	
 	public synchronized static Area makeArea(int area, String city, DBConnection conn) throws IllegalArgumentException, ClassNotFoundException, SQLException{
@@ -45,9 +50,25 @@ public class AreaFactory {
 		return a;
 	}
 	
+	public synchronized static Area makeArea(int area, String city) throws IllegalArgumentException, ClassNotFoundException, SQLException{
+		Area a = makeArea(area);
+		if(!city.trim().matches("[A-Za-z .]+"))
+			throw new IllegalArgumentException("City name invalid");
+		else {
+			a.addCity(city);
+		}
+		return a;
+	}
+	
 	public synchronized static Area makeArea(int area, String city, HashSet<Integer> zips, DBConnection conn) throws IllegalArgumentException, ClassNotFoundException, SQLException{
 		Area a = makeArea(area, city, conn);
 		a.addZips(zips, conn);
+		return a;
+	}
+	
+	public synchronized static Area makeArea(int area, String city, HashSet<Integer> zips) throws IllegalArgumentException, ClassNotFoundException, SQLException{
+		Area a = makeArea(area, city);
+		a.addZips(zips);
 		return a;
 	}
 	

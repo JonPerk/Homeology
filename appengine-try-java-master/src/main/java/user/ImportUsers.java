@@ -14,6 +14,7 @@ import java.util.HashSet;
 import java.util.TimeZone;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.regex.Pattern;
 
 import mls.ImportMLS;
 import mls.area.Area;
@@ -60,13 +61,15 @@ public class ImportUsers {
 		HashMap<String, Object> newUser = new HashMap<String, Object>();
 		for(int i = 0; i < responses.length; i++){
 			String[] temp = responses[i].split("=");
+			String plus = Pattern.quote("+");
 			if(temp.length > 1){
 				UserObjectFields uof = UserObjectFields.getUserObjectField(temp[0]);
+				temp[1] = temp[1].replace("+", " ");
 				if(uof != null){
 					if(uof.toJavaClass().equals(String.class))
 						newUser.put(uof.toObjectField(), temp[1]);
 					else if(uof.toJavaClass().equals(int.class))
-						newUser.put(uof.toObjectField(), Integer.valueOf(temp[1].replaceAll("[$,]?(%2B)?( hr.)?( hrs.)?", "")));
+						newUser.put(uof.toObjectField(), Integer.valueOf(temp[1].replaceAll("[$,]?(%2B)?(hr[.])?(hrs[.])?", "").trim()));
 					else if(uof.toJavaClass().equals(double.class)){
 						double d;
 						if(temp[1].equals("5%25"))
@@ -75,8 +78,11 @@ public class ImportUsers {
 							d= 0.1;
 						else if(temp[1].equals("20%25"))
 							d= 0.2;
-						else
-							d = Double.valueOf(temp[1].replaceAll("[$,]?(%2B)?( hr.)?( hrs.)?", ""));
+						else if(temp[1].equals("Not+applicable%2Fdon%27t+care"))
+							d = 10;
+						else{
+							d = Double.valueOf(temp[1].replaceAll("[$,]?(%2B)?(hr[.])?(hrs[.])?", "").trim());
+						}
 						newUser.put(uof.toObjectField(), d);
 					}else if(uof.toJavaClass().equals(boolean.class))
 						newUser.put(uof.toObjectField(), Boolean.valueOf(temp[1]));
@@ -117,15 +123,24 @@ public class ImportUsers {
 	}
 	
 	public ArrayList<Integer> findMatchedCommuteAreas(ArrayList<Integer> matches, double commuteTime, int workZip, DBConnection conn) throws IOException, JSONException, SQLException, IllegalArgumentException, ClassNotFoundException{
+		//log.log(Level.INFO, workZip + "");
 		ArrayList<Integer> newMatches = new ArrayList<Integer>();
-		ArrayList<Integer> zips = getZips(workZip, commuteTime, conn);
-		for(int m : matches){
-			Area a = AreaFactory.makeArea(m, conn);
-			HashSet<Integer> areaZips = a.getZips();
-			for(int z :zips){
-				if(areaZips.contains(z))
-				newMatches.add(a.getArea());
+		if(workZip != 0){
+			ArrayList<Integer> zips = getZips(workZip, commuteTime, conn);
+			for(int m : matches){
+				Area a = AreaFactory.makeArea(m, conn);
+				HashSet<Integer> areaZips = a.getZips();
+				//log.log(Level.INFO, a.toString());
+				for(int z :zips){
+					if(areaZips.contains(z)){
+						newMatches.add(a.getArea());
+						break;
+					}
+				}
 			}
+		}
+		else{
+			newMatches = matches;
 		}
 		return newMatches;
 	}
@@ -157,74 +172,29 @@ public class ImportUsers {
 		api.disconnect();
 		JSONObject json = new JSONObject(sb.toString());
 		JSONArray arr = json.getJSONArray("zip_codes");
+		//log.log(Level.INFO, arr.toString(2));
 		int workZone = conn.getZipZone(workZip);
+		//log.log(Level.INFO, workZone + " " + workZip);
 		for(int i = 0; i < arr.length(); i++){
 			JSONObject o = arr.getJSONObject(i);
+			//log.log(Level.INFO, o.toString(2));
 			int zip = Integer.valueOf(o.getString("zip_code"));
 			int zone = conn.getZipZone(zip);
-			if(zone != -1 && workZone != -1)
-				if(ZoneSpeeds.getZoneSpeed(zone).getSpeeds()[workZone]*commuteTime <= Double.valueOf(o.getString("distance")))
+			//log.log(Level.INFO, zone + " ");
+			if(zone != -1 && workZone != -1){
+				if(ZoneSpeeds.getZoneSpeed(zone).getSpeeds()[workZone]*commuteTime >= o.getDouble("distance")){
+					//log.log(Level.INFO, (ZoneSpeeds.getZoneSpeed(zone).getSpeeds()[workZone]*commuteTime >= o.getDouble("distance"))+"");
 					results.add(zip);
+				}
+			}
 		}
 		return results;
 	}
-	/*public ArrayList<HashMap<String, Object>> findUsersAreas(ArrayList<HashMap<String, Object>> users, ArrayList<Rent> areasRents, ArrayList<Buy> areasBuys){
-		for(HashMap<String, Object> user : users){
-			user = findUserAreas(user, areasRents, areasBuys);
-		}
-		return users;
-	}
-	
-	public HashMap<String, Object> findUserAreas(HashMap<String,Object> user, ArrayList<Rent> areasRents, ArrayList<Buy> areasBuys){
-		ArrayList<Integer> results = new ArrayList<Integer>();
-		String type = (String) user.get(UserObjectFields.RENT_OR_BUY.toObjectField());
-		if(type == null){
-			return user;
-		}
-		if(type.equalsIgnoreCase("Renting")){
-			if(user.get("Baths") != null && user.get("MonthlyRent") != null)
-				try{
-					results = findRentsByPrice((double) user.get("Monthly_Rent"), (int) user.get("Baths"), areasRents);
-		
-				}
-				catch(Exception e){
-					e.printStackTrace();
-				}
-		}
-		else if(type.equalsIgnoreCase("Buying")){
-			if(user.get("Baths") != null && user.get("Montly_Mortgage") != null && user.get("DownPayment") != null)
-				try{
-					results = findMortgagesByPrice(Double.valueOf(user.get("MONTHLY_MORTGAGE").toString().replaceAll("$,", "")), Double.valueOf(user.get("DOWN_PAYMENT").toString()), Integer.valueOf(user.get("BATHS").toString().replace("+", "")), areasBuys);
-				}
-				catch(Exception e){
-					e.printStackTrace();
-				}
-		}
-		else{
-			if(user.get("BATHS") != null && user.get("MONTHLY_RENT") != null)
-				try{
-					results = findRentsByPrice(Double.valueOf(user.get("MONTHLY_RENT").toString().replaceAll("$,", "")), Integer.valueOf(user.get("BATHS").toString().replace("+", "")), areasRents);
-		
-				}
-				catch(Exception e){
-					e.printStackTrace();
-				}
-			if(user.get("BATHS") != null && user.get("MONTHLY_MORTGAGE") != null && user.get("DOWN_PAYMENT") != null)
-				try{
-					results.addAll(findMortgagesByPrice(Double.valueOf(user.get("MONTHLY_MORTGAGE").toString().replaceAll("$,", "")), Double.valueOf(user.get("DOWN_PAYMENT").toString()), Integer.valueOf(user.get("BATHS").toString().replace("+", "")), areasBuys));
-				}
-				catch(Exception e){
-					e.printStackTrace();
-				}
-		}
-		user.put("MATCHED_AREAS", results);
-		return user;
-	}*/
 	
 	public ArrayList<Integer> findRentsByPrice(double price, int beds, int baths, DBConnection conn) throws ClassNotFoundException, SQLException{
 		ArrayList<Integer> results = new ArrayList<Integer>();
 		int margin = 100;
-		while(results.size() < 10 && margin <= 500){
+		while(results.size() < 10 && margin <= 200){
 			for(int tempBaths = baths; tempBaths <= BedsAndBaths.MAX_BATHS.getInt(); tempBaths++){
 				ArrayList<Rent> rents = conn.getAllRents(beds, tempBaths);
 				for(Rent rent : rents){
@@ -234,7 +204,7 @@ public class ImportUsers {
 					}
 				}
 			}
-			margin += 100;
+			margin += 50;
 		}
 		return results;
 	}
@@ -243,7 +213,7 @@ public class ImportUsers {
 		ArrayList<Integer> results = new ArrayList<Integer>();
 		int margin = 100;
 		int downpayment = (int) dp * 100;
-		while(results.size() < 10 && margin <= 500){
+		while(results.size() < 10 && margin <= 200){
 			for(int tempBaths = baths; tempBaths <= 3; tempBaths++){
 				ArrayList<Buy> buys = conn.getAllBuysAtDP(beds, tempBaths, dp);
 				for(Buy buy : buys){				
@@ -253,7 +223,7 @@ public class ImportUsers {
 					}
 				}
 			}
-			margin += 100;
+			margin += 50;
 		}
 		return results;
 	}

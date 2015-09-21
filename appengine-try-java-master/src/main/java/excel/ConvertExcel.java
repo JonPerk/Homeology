@@ -115,7 +115,7 @@ public class ConvertExcel {
 	public static void main(String[] args) throws SpreadSheetSizeException{
 		ConvertExcel ce = new ConvertExcel();
 		String path = "C:\\Users\\L096026\\Documents\\Homeology\\Homeology\\";
-		String file = "buyAtt2btest";
+		String file = "buyAtt2b3";
 		String ext = ".xlsx";
 		JSONObject json = new JSONObject();
 		DBConnection conn = null;
