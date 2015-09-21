@@ -117,13 +117,10 @@ header h1 {
     background-color: #4a91e8;
 }
 
-.table th {
-	background-color: #2071d9;
-}
-
 .table {
-	opacity: .7;
-	border-radius: 5px;
+	background-color: white;
+	opacity: .8;
+	border-radius: 20px;
 }
 
 .table th, .table tr {
@@ -131,7 +128,20 @@ header h1 {
 }
 
 #tableHeader {
-	border
+	font-weight: bold;
+	color: black;
+}
+
+tr {
+	cursor:pointer;
+}
+
+td a {
+	display:block;
+}
+
+div label {
+	background-color: white;
 }
 
 @media (min-width: 1001px) and max-width: 2000px) {
