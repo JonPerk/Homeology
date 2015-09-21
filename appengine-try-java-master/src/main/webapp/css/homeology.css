@@ -140,8 +140,14 @@ td a {
 	display:block;
 }
 
-div label {
-	background-color: white;
+#example_filter, #example_length {
+	color: #000000;
+	font-style: bold;
+	font-size: 20px;
+}
+
+#example_info, #example_previous, #example_next {
+	color: white !important;
 }
 
 @media (min-width: 1001px) and max-width: 2000px) {
