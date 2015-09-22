@@ -150,6 +150,14 @@ td a {
 	color: white !important;
 }
 
+#example_paginate .paginate_button {
+	color: white !important;
+}
+
+#example_paginate .paginate_button.current  {
+	color: black !important;
+}
+
 @media (min-width: 1001px) and max-width: 2000px) {
 	body {
 		background-image: url("../img/ChicagoRiver.jpg");
