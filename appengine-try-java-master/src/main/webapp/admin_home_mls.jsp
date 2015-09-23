@@ -54,7 +54,7 @@ Select a file to upload: <br />
 	</thead>
 	<tbody>	
 	<c:forEach items="${areas}" var="area">
-		<tr>      
+		<tr class="clickableRow" data-href="view_area?areaId=${area.area}">      
 		        <td><a href="view_area?areaId=${area.area}">${area.area}</a></td>
 		        <td><c:forEach items="${area.cities}" var="city">${city} </c:forEach></td>
 		        <td><c:forEach items="${area.zips}" var="zip">${zip} </c:forEach></td>
