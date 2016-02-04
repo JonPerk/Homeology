@@ -42,7 +42,7 @@ public class ViewCustomerServlet extends HttpServlet {
 	        req.setAttribute("fname", fname);
 	        req.setAttribute("email", email);
 	        req.setAttribute("phone", phone);
-	        req.getRequestDispatcher("/view_user.jsp").forward(req, resp);
+	        req.getRequestDispatcher("/view_customers.jsp").forward(req, resp);
 	        conn.close();
         }
         catch(Exception e){

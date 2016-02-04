@@ -4,7 +4,7 @@
 
 <html>
 <head>
-	<title> Potential Customers </title>
+	<title> Customers </title>
 	<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
 	<link rel="icon" type="image/ico" href="../img/homeology_logo.ico.png"/>
 	<link rel="shortcut icon" href="../img/homeology_logo.ico.png"/>
@@ -26,7 +26,7 @@
 	<div id="logo">
 		<a href="Admin_home.html"><img src="img/logo.png"/></a>
 	</div>
-	<h1> Potential Customers </h1>
+	<h1> Customers </h1>
 </header>
 
 <div class="container">
@@ -55,6 +55,10 @@
     <c:choose>
     <c:when test="${empty buys}"></c:when>
     <c:otherwise>-->
+    
+    <!--</c:otherwise>
+    </c:choose-->
+    <c:choose>
     <c:forEach items="${user}" var="user">
 		<tr>      
 		        <td>${user.fname}</td>
@@ -63,8 +67,7 @@
 		        <td><a href="">Details on ${user.fname}</a></td>
     		</tr>
     </c:forEach>
-    <!--</c:otherwise>
-    </c:choose-->
+    </c:choose>
     </tbody>
 </table>
 </div>
